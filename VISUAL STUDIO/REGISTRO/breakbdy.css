@@ -1,0 +1,70 @@
+html{
+  background-color: gray;
+  background-image: url("logo.png");
+}
+
+.justificacion{
+  align-items: center;
+  display: flex;
+  margin: auto;
+}
+.entradas{
+  font-family: 'Fjalla One', sans-serif;
+  background-color: #b19342;
+  color: black;
+    width: 300px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    margin: auto;
+}
+.titulos{
+  font-weight: 80px;
+  font-family: 'Fjalla One', sans-serif;
+  display: flex;
+  padding-bottom: 50px;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  margin: auto;
+}
+
+.form-logueo{
+  width: 400px;
+  background-color: black;
+  padding: 30px;
+  margin: auto;
+  border-radius: 4px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: white;
+}
+
+.boton{
+  font-family: 'Fjalla One', sans-serif;
+  border-radius: 10px;
+  background-color: black;
+  color: white;
+  cursor: cell;
+  width: 300px;
+  height: 50px;
+  margin: auto;
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+.tituloInferior{
+  font-weight: 70px;
+  font-family: 'Fjalla One', sans-serif;
+  display: flex;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  margin: auto;
+}
