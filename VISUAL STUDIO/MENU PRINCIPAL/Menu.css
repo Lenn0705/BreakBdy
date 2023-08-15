@@ -1,0 +1,74 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Fjalla One', sans-serif;
+    background-color: #9e9e9e;
+    display: flex;
+}
+
+/* Se usa # en vez de . para citar el id directamente*/
+
+#menu-barra{
+    font-family: 'Fjalla One', sans-serif;
+    height: 90%;
+    
+    width: 250px;
+    position: fixed;
+    background-color: gray;
+    margin-left: 10px;
+    padding-top: 20px;
+    border-radius: 20px;
+    margin-top: 20px;
+}
+
+#menu-barra a{
+    color: white;
+    background-color: gray;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    align-items: center;
+    border-radius: 10px;
+    margin: 0;
+}
+
+/* Se usa hover para que se active cuando pase el cursor por encima y cambiar las caracteristicas*/
+
+#menu-barra a:hover{
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.imagen2:hover{
+    filter: invert(0%);
+}
+
+#contenido{
+    margin-left:250px ;
+    padding: 20px;
+    font-family: 'Fjalla One', sans-serif;
+}
+
+.imagen{
+    width: 70px;
+    margin: auto;
+    filter: invert(100%);
+    display:block;
+}
+
+.imagen2{
+    width: 70px;
+    filter: invert(100%);
+    margin: auto;
+    display: block;
+}
+
+#menu-barra.menu-boton {
+    filter: invert(100%);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
