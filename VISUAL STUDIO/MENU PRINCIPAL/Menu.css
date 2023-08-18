@@ -34,24 +34,25 @@ body{
 #menu-barra-der{
     font-family: 'Fjalla One', sans-serif;
     height: 90%;
-    width: 100px;
+    width: auto;
     position: fixed;
-    margin-left: 300px;
+    margin-left: 400px;
     margin-bottom: 10;
     padding-top: 20px;
     margin-top: 20px;
 }
 
 #menu-barra-der a{
+    width: 100%;
     color: white;
     background-color: black;
     text-decoration: none;
     padding-right: 50px;
     padding-top: 20px;
     padding-bottom: 20px;
-    display: block;
+    display: flex;
     align-items: center;
-    border-radius: 40px;
+    border-radius: 50px;
     margin-bottom: 20px;
 }
 
@@ -69,8 +70,8 @@ body{
 
 
 #contenido{
-    margin-left:250px ;
-    padding: 15px;
+    margin-left:175px ;
+    padding-top: 15px;
     font-family: 'Fjalla One', sans-serif;
 }
 
