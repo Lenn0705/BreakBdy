@@ -8,9 +8,41 @@ body{
 
 /* Barra de interacciones*/
 /* Se usa # en vez de . para citar el id directamente*/
+#barra-control{
+    font-family: 'Aquawax', sans-serif;
+    width: auto;
+    height: 30%;
+    position: fixed;
+    margin-left: 150px;
+    margin-bottom: 10;
+    padding-top: 20px;
+    margin-top: 20px;
+}
+
+#barra-control button{
+    font-family: 'Aquawax', sans-serif;
+    width: 100%;
+    color: white;
+    background-color: black;
+    padding-right: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    align-items: center;
+    border-radius: 50px;
+    margin-bottom: 20px;
+}
+
+#barra-control button:hover{
+    background-color: #EEF0E1;
+    color: black;
+    border: 5px solid black;
+    transform: scale(1.2);
+    transition: 0.3s ease-in-out;
+}
 
 #menu-barra{
-    font-family: 'Fjalla One', sans-serif;
+    font-family: 'Aquawax', sans-serif;
     height: 72%;
     width: 100px;
     position: absolute;
@@ -37,7 +69,7 @@ body{
     height: 90%;
     width: auto;
     position: fixed;
-    margin-left: 400px;
+    margin-left: 150px;
     margin-bottom: 10;
     padding-top: 20px;
     margin-top: 20px;
@@ -57,11 +89,6 @@ body{
     margin-bottom: 20px;
 }
 
-
-
-/* Se usa hover para que se active cuando pase el cursor por encima y cambiar las caracteristicas*/
-
-
 #menu-barra a:hover{
     background-color: #b19342;
     color: black;
@@ -70,12 +97,6 @@ body{
     border: 3px solid black;
     transform: scale(1.2);
     transition: 0.3s ease-in-out;
-}
-
-#contenido{
-    margin-left:175px ;
-    padding-top: 15px;
-    font-family: 'Fjalla One', sans-serif;
 }
 
 /* Imagenes de la barra de funcionamiento*/
@@ -108,64 +129,14 @@ body{
     border-radius: 5px;
 }
 
-/* Calendario*/
-
-.calendario{
-    display: grid;
-    grid-template-columns: repeat(7,1fr);
-    border-collapse: collapse;
-    width: 100%;
-    border-radius: 30px;
-    border-color: black;
-}
-
-.encabezado-calendario{
-    background-color: #b19342;
-    text-align: center;
-    padding: 10px;
-    border-radius: 30px;
-}
-
-.dia-calendario{
-    border: 1px solid #9e9e9e;
-    padding: 10px;
-    text-align: center;
-    color: black;
-}
-
-.dia-calendario:hover{
-    border: 2px solid black;
-    transform: scale(1.2);
-    transition: 0.3s ease-in-out;
-}
-
-/* Estilo y trancisiones de las notificaciones*/
-
-#Descanso a{
-  background-color: #b19342;
-    }
-
 #Evento a{
     background-color: #EEF0E1;
     color: black;
     }
     
-#Compromiso a{
-    background-color: gray;
+#Evento a:hover{
+        border: 5px solid black;
+        transform: scale(1.2);
+        transition: 0.3s ease-in-out;
     }
-
-#Tarea a:hover{
-    border: 5px solid white;
-    transform: scale(1.2);
-    transition: 0.3s ease-in-out;
-    }
-
-#Descanso a:hover , #Compromiso a:hover , #Evento a:hover{
-    border: 5px solid black;
-    transform: scale(1.2);
-    transition: 0.3s ease-in-out;
-}
-
-
-
-
+    
