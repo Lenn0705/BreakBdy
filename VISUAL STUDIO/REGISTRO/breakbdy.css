@@ -1,6 +1,6 @@
 html{
   background-color: gray;
-  background-image: url("logo.png");
+ 
 }
 
 .justificacion{
@@ -8,8 +8,17 @@ html{
   display: flex;
   margin: auto;
 }
+
+#logo{
+  display: flex;
+  width: 150px ;
+  border-radius: 30px;
+  margin: auto;
+  margin-bottom: 20px;
+}
+
 .entradas{
-  font-family: 'Fjalla One', sans-serif;
+  font-family: 'Gilroy', sans-serif;
   background-color: #b19342;
   color: black;
     width: 300px;
@@ -21,9 +30,10 @@ html{
     align-items: center;
     margin: auto;
 }
+
 .titulos{
   font-weight: 80px;
-  font-family: 'Fjalla One', sans-serif;
+  font-family: 'Gilroy', sans-serif;
   display: flex;
   padding-bottom: 50px;
   justify-content: center;
@@ -38,12 +48,12 @@ html{
   padding: 30px;
   margin: auto;
   border-radius: 4px;
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-family: 'Gilroy', sans-serif;
   color: white;
 }
 
 .boton{
-  font-family: 'Fjalla One', sans-serif;
+  font-family: 'Gilroy', sans-serif;
   border-radius: 10px;
   background-color: black;
   color: white;
@@ -59,12 +69,19 @@ html{
 }
 .tituloInferior{
   font-weight: 70px;
-  font-family: 'Fjalla One', sans-serif;
+  font-family: 'Gilroy', sans-serif;
   display: flex;
   padding-top: 50px;
-  padding-bottom: 50px;
+  padding-bottom: 10px;
   justify-content: center;
   text-align: center;
   align-items: center;
   margin: auto;
+}
+
+.boton:hover{
+  transform: scale(1.3);
+  transition: 0.3s ease-in-out;
+  background-color: #EEF0E1;
+  color: black;
 }
