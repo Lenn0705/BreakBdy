@@ -1,0 +1,80 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Gilroy', sans-serif;
+    background-color: #9e9e9e;
+    display: flex;
+}
+
+#menu-barra{
+    font-family: 'Gilroy', sans-serif;
+    height: 90%;
+    width: 100px;
+    position: absolute;
+    background-color: gray;
+    margin-left: 10px;
+    padding-top: 20px;
+    border-radius: 30px;
+    margin-top: 20px;
+}
+
+#menu-barra a{
+    color: white;
+    background-color: gray;
+    text-decoration: none;
+    display: block;
+    padding: 15px;
+    align-items: center;
+    border-radius: 10px;
+    margin: 0;
+    
+}
+
+#menu-barra a:hover{
+    background-color: #b19342;
+    color: black;
+    cursor: pointer;
+    border-radius: 10px;
+    border: 3px solid black;
+    transform: scale(1.2);
+    transition: 0.3s ease-in-out;
+}
+
+/* Imagenes de la barra de funcionamiento*/
+
+.imagen{
+    padding-top: 10px;
+    width: 40px;
+    margin: auto;
+    filter: invert(100%);
+    display:block;
+}
+
+.imagen2{
+    width: 40px;
+    filter: invert(100%);
+    margin: auto;
+    display: block;
+}
+
+.imagen3{
+    width: 40px;
+    margin: auto;
+    display: block;
+}
+
+.imagen4{
+    width: 40px;
+    margin: auto;
+    display: block;
+    border-radius: 5px;
+}
+
+#Formulario section{
+border-radius: 30px;
+background-color: #b19342;
+margin-bottom: 20px;
+}
+
+
+
