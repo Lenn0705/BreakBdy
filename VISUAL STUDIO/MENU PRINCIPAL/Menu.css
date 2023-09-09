@@ -176,14 +176,25 @@ body{
     flex-wrap: wrap;
 }
 
+    /*Responsive*/
+
 @media screen and (max-width: 768px) {
-    #contenedor-grande {
-      flex-direction: column;
+    .imagen , .imagen2 , .imagen3 , .imagen4 {
+      width: 25px;
+      height: 25px;
     }
+    .div{
+display: flex;
+flex-direction: column;
+    }
+    #contenedor-grande {
+        flex-direction: column;
+      }
 }
 
-    @media screen and (max-width: 768px) {
-        .imagen , .imagen2 , .imagen3 , .imagen4 {
-          width: 25px;
-        }
+@media screen and (max-height: 695px) {
+    .imagen , .imagen2 , .imagen3 , .imagen4 {
+      width: 25px;
+      height: 25px;
     }
+}

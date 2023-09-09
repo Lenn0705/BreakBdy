@@ -87,7 +87,20 @@ body{
     margin-left: 20px;
 }
 
-.boton:hover{
+.boton2{
+    width:auto;
+    border-radius: 30px;
+    background-color: #333333;
+    color: white;
+    font-family: 'Gilroy', sans-serif;
+    font-size: small;  
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+    margin-left: 20px;
+}
+
+.boton:hover , .boton2:hover{
     transform: scale(1.3);
     transition: 0.3s ease-in-out;
     background-color: #EEF0E1;

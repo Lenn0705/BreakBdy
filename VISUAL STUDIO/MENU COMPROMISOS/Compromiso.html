@@ -2,10 +2,14 @@
 <html lang="en">
 <head>
     <link href="https://fonts.cdnfonts.com/css/gilroy" rel="stylesheet">
-    <link rel="stylesheet" href="CrearEvento.css">
+    <link href="https://fonts.cdnfonts.com/css/aquawax" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="Compromiso.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear nuevo evento</title>
+    <title>Comp List</title>
 </head>
 <body>
     <div id="menu-barra">
@@ -18,42 +22,28 @@
     <a href="Expandir"><img class="imagen3" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/menu.png?raw=true" alt=""></a>
   </div>
 
-    <div class="col-md-1" >
-        <form action="" method="get" id="Formulario">
-        <section class="">
-            
-        <label for="Nombre">Nombre:</label>
-        <input type="text" name="nombre" id="nombre">
-        </section>
-        <section>
-            <label for="Descripcion">Descripcion:</label>
-            <input type="text" name="Nombre" id="Nombre">
-        </section>
-        <section>
-            <label for="Hora">Hora:</label>
-            <input type="time" name="Hora" id="Hora">
-        </section>
-        <section>
-        <label for="Prioridad">Prioridad:</label><select name="Prioridad" id="Prioridad">
-            <option value="0">Baja</option>
-            <option value="1">Alta</option>
-        </select>
-        </section>
-    </form>
-    </div>
-    <div class="col-md-1">
-        <form action="" method="get" id="Formulario">
-        <section>
-<label for="Fecha">Fecha:</label>
-<input type="date" name="Fecha" id="Fecha">
+  <div id="menu-barra-der">
+    <section id="Compromiso" name="Compromiso">
+        <a href="Evento.html">Compromiso1 <p>descripcion</p> <p>12:00-15:00</p></a>
+        <a href="Evento.html">Compromiso2 <p>descripcion</p> <p>12:00-15:00</p></a>
+        <a href="Evento.html">Compromiso3 <p>descripcion</p> <p>12:00-15:00</p></a>
+        <a href="Evento.html">Compromiso4 <p>descripcion</p> <p>12:00-15:00</p></a>
+        <a href="Evento.html">Compromiso5 <p>descripcion</p> <p>12:00-15:00</p></a>
+    </section>
 
-        </section>
-        <section class="botones-control">
-        <button class="boton"><-</button>
-            <button class="boton"> + </button>
-        </section>
-    </form>
+    <div id="barra-control">
+     <section id="control">
+        <button onclick="crear()">Crear Compromiso</button>
+        <button onclick="editar()">Editar Compromiso</button>
+        <button onclick="Eliminar()">Eliminar Compromiso</button>
+     </section>
+
     </div>
+  
+  </div>
+
+
+ 
 
 </body>
 </html>

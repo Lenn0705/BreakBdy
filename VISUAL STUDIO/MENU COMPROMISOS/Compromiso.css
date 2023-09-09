@@ -130,13 +130,14 @@ body{
     border-radius: 5px;
 }
 
-#Evento{
+/*Dashboard de los compromisos */
+#Compromiso{
     height: 90%;
 }
 
-#Evento a{
-    background-color: #EEF0E1;
-    color: black;
+#Compromiso a{
+    background-color: #2e2e2e;
+    color: white;
     display: flex;
     flex-direction: column;
     width: auto;
@@ -145,10 +146,12 @@ body{
     padding: 20px 15px;
     }
     
-#Evento a:hover{
+#Compromiso a:hover{
         border: 5px solid black;
         transform: scale(1.2);
         transition: 0.3s ease-in-out;
+        background-color: #EEF0E1;
+        color: black;
     }
 
 /*Responsive*/
