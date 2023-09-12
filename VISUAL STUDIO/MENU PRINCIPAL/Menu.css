@@ -6,13 +6,14 @@ body{
     display: flex;
 }
 
+/* Barra de interacciones*/
 /* Se usa # en vez de . para citar el id directamente*/
 
 #menu-barra{
-    font-family: 'Fjalla One', sans-serif;
+    font-family: 'Gilroy', sans-serif;
     height: 90%;
     width: 100px;
-    position: fixed;
+    position: absolute;
     background-color: gray;
     margin-left: 10px;
     padding-top: 20px;
@@ -24,29 +25,63 @@ body{
     color: white;
     background-color: gray;
     text-decoration: none;
-    display: block;
-    padding: 20px;
+    display: flex;
+    padding: 15px;
     align-items: center;
     border-radius: 10px;
     margin: 0;
 }
 
+#menu-barra-der{
+    font-family: 'Gilroy', sans-serif;
+    height: 90%;
+    width: auto;
+    position: absolute;
+    margin-left: 450px;
+    margin-bottom: 10;
+    padding-top: 20px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+#menu-barra-der a{
+    width: 100%;
+    color: white;
+    background-color: black;
+    text-decoration: none;
+    padding-right: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: block;
+    align-items: center;
+    border-radius: 50px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+
+
 /* Se usa hover para que se active cuando pase el cursor por encima y cambiar las caracteristicas*/
+
 
 #menu-barra a:hover{
     background-color: #b19342;
     color: black;
     cursor: pointer;
     border-radius: 10px;
+    border: 3px solid black;
+    transform: scale(1.2);
+    transition: 0.3s ease-in-out;
 }
-
-
 
 #contenido{
-    margin-left:250px ;
-    padding: 20px;
-    font-family: 'Fjalla One', sans-serif;
+    margin-left:175px ;
+    padding-top: 15px;
+    font-family: 'Gilroy', sans-serif;
 }
+
+/* Imagenes de la barra de funcionamiento*/
 
 .imagen{
     padding-top: 10px;
@@ -69,21 +104,23 @@ body{
     display: block;
 }
 
-#menu-barra.boton-menu {
-    filter: invert(100%);
-    width: 40px;
-    filter: invert(100%);
+.imagen4{
+    width: 55px;
     margin: auto;
     display: block;
+    border-radius: 5px;
 }
 
-.calendario{
+/* Calendario*/
+
+#calendario{
     display: grid;
     grid-template-columns: repeat(7,1fr);
     border-collapse: collapse;
     width: 100%;
     border-radius: 30px;
     border-color: black;
+    
 }
 
 .encabezado-calendario{
@@ -98,4 +135,66 @@ body{
     padding: 10px;
     text-align: center;
     color: black;
+}
+
+.dia-calendario:hover{
+    border: 2px solid black;
+    transform: scale(1.2);
+    transition: 0.3s ease-in-out;
+}
+
+/* Estilo y trancisiones de las notificaciones*/
+
+#Descanso a{
+  background-color: #b19342;
+    }
+
+#Evento a{
+    background-color: #EEF0E1;
+    color: black;
+    }
+    
+#Compromiso a{
+    background-color: gray;
+    }
+
+#Tarea a:hover{
+    border: 5px solid white;
+    transform: scale(1.2);
+    transition: 0.3s ease-in-out;
+    }
+
+#Descanso a:hover , #Compromiso a:hover , #Evento a:hover{
+    border: 5px solid black;
+    transform: scale(1.2);
+    transition: 0.3s ease-in-out;
+}
+
+#contenedor-grande{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+    /*Responsive*/
+
+@media screen and (max-width: 768px) {
+    .imagen , .imagen2 , .imagen3 , .imagen4 {
+      width: 25px;
+      height: 25px;
+    }
+    .div{
+display: flex;
+flex-direction: column;
+    }
+    #contenedor-grande {
+        flex-direction: column;
+      }
+}
+
+@media screen and (max-height: 695px) {
+    .imagen , .imagen2 , .imagen3 , .imagen4 {
+      width: 25px;
+      height: 25px;
+    }
 }

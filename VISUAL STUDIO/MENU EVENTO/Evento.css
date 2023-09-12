@@ -1,0 +1,172 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Gilroy', sans-serif;
+    background-color: #9e9e9e;
+    display: flex;
+}
+
+/* Barra de interacciones*/
+/* Se usa # en vez de . para citar el id directamente*/
+#barra-control{
+    font-family: 'Gilroy', sans-serif;
+    width: auto;
+    height: 30%;
+    position: fixed;
+    display: flex;
+    margin-left: 200px;
+    margin-bottom: 10;
+    padding-top: 0;
+    margin-top: 0;
+}
+
+#barra-control button{
+    font-family: 'Gilroy', sans-serif;
+    width: 100%;
+    color: white;
+    background-color: black;
+    padding-right: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    display: flex;
+    align-items: center;
+    border-radius: 50px;
+    margin-bottom: 20px;
+}
+
+#barra-control button:hover{
+    background-color: #EEF0E1;
+    color: black;
+    border: 5px solid black;
+    transform: scale(1.2);
+    transition: 0.3s ease-in-out;
+}
+
+#menu-barra{
+    font-family: 'Gilroy', sans-serif;
+    height: 90%;
+    width: 100px;
+    position: fixed;
+    background-color: gray;
+    margin-left: 10px;
+    padding-top: 20px;
+    border-radius: 30px;
+    margin-top: 20px;
+}
+
+#menu-barra a{
+    color: white;
+    background-color: gray;
+    text-decoration: none;
+    display: block;
+    padding: 15px;
+    align-items: center;
+    border-radius: 10px;
+    margin: 0;
+    
+}
+
+#menu-barra-der{
+    font-family: 'Gilroy', sans-serif;
+    height: 80%;
+    width: 150px;
+    display: flex;
+    margin-left: 150px;
+    margin-bottom: 10;
+    padding-top: 20px;
+    margin-top: 20px;
+    flex-direction: column;
+}
+
+#menu-barra-der a{
+    width: 50%;
+    color: white;
+    background-color: black;
+    text-decoration: none;
+    padding-right: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    align-items: center;
+    border-radius: 50px;
+}
+
+#menu-barra a:hover{
+    background-color: #b19342;
+    color: black;
+    cursor: pointer;
+    border-radius: 10px;
+    border: 3px solid black;
+    transform: scale(1.2);
+    transition: 0.3s ease-in-out;
+}
+
+/* Imagenes de la barra de funcionamiento*/
+
+.imagen{
+    padding-top: 10px;
+    width: 40px;
+    margin: auto;
+    filter: invert(100%);
+    display:block;
+}
+
+.imagen2{
+    width: 40px;
+    filter: invert(100%);
+    margin: auto;
+    display: block;
+}
+
+.imagen3{
+    width: 40px;
+    margin: auto;
+    display: block;
+}
+
+.imagen4{
+    width: 55px;
+    margin: auto;
+    display: block;
+    border-radius: 5px;
+}
+
+#Evento{
+    height: 90%;
+}
+
+#Evento a{
+    background-color: #EEF0E1;
+    color: black;
+    display: flex;
+    flex-direction: column;
+    width: auto;
+    margin-bottom: 20px;
+    align-content: center;
+    padding: 20px 15px;
+    }
+    
+#Evento a:hover{
+        border: 5px solid black;
+        transform: scale(1.2);
+        transition: 0.3s ease-in-out;
+    }
+
+/*Responsive*/
+
+@media screen and (max-width: 768px) {
+    .imagen , .imagen2 , .imagen3 , .imagen4 {
+      width: 25px;
+      height: 25px;
+    }
+    .div{
+display: flex;
+flex-direction: column;
+    }
+}
+
+@media screen and (max-height: 695px) {
+    .imagen , .imagen2 , .imagen3 , .imagen4 {
+      width: 25px;
+      height: 25px;
+    }
+}

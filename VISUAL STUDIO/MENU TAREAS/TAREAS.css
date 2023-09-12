@@ -1,0 +1,15 @@
+.row1{
+    background-color: blue;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: large;
+    text-align: center;
+}
+
+.row2{
+    background-color: beige;
+    justify-content: center;
+
+}
