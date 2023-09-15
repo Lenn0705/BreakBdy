@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="DescripcionDescanso.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Descansos</title>
+    <title>Descripción Descansos</title>
 </head>
 <body>
     <div id="menu-barra">
@@ -25,18 +25,19 @@
 
   <div id="col-md-1">
     <form action="" method="get" id="Formulario">
-        <section class="">
-            <label for="DescripcionDescanso">Descanso</label>
-            <input type="text" name="DescripcionDescanso" id="DescripcionDescanso">
-            
-        </section>
         <section>
-            <label for="recordatorio">Recordatorio</label>
-            <img src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-descansos.png?raw=true" name="recordatorio" alt=""> 
-            <label>
-                <img src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Calendario.png?raw=true" alt=""> 
-                <input type="text" name="recordatorio-fecha" id="recordatorio-fecha">
-            </label>
+                <label style="white-space: pre;">Descanso: </label>
+                <span id="descripcion-descanso">Lorem ipsum dolor sit amet, consectetur adipiscing Lorem ipsum dolor sit amet, consectetur adi sit amet, consectetur adipiscing</span>    
+        </section>
+        <section style="column-count: 2;">
+            <div>
+                <label for="recordatorio">Recordatorio</label>
+                <img src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-descansos.png?raw=true" name="recordatorio" alt=""> 
+            </div>
+            <div style="text-align: right;">
+                <img src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Calendario.png?raw=true"> 
+                <span class="caja-blanca" id="fecha-descanso">14-09-2023</span>
+            </div>
         </section>
 
         <section>
@@ -44,6 +45,13 @@
             <p>2.Pausa visual</p>
             <p>3.Estiramiento brazos</p>
         </section>
+
+        <section style="text-align: center;">
+            <button class="boton">Posponer</button>
+            <button class="boton" onclick="history.back()"><-</button>
+
+        </section>
+
     </form>
   </div>
 

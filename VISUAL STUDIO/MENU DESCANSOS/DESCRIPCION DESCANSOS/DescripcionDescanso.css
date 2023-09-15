@@ -72,6 +72,26 @@ body{
     border-radius: 5px;
 }
 
+/*Botones*/
+
+.boton{
+    width:auto;
+    border-radius: 30px;
+    background-color: #333333;
+    color: white;
+    font-family: 'Gilroy', sans-serif;
+    font-size: small;  
+    text-align: center;
+    margin: 10px;
+    padding: 20px;
+}
+
+.boton:hover{
+    transform: scale(1.3);
+    transition: 0.3s ease-in-out;
+    background-color: #EEF0E1;
+    color: #333333;
+}
 
 /*Formulario creacion de evento*/
 
@@ -82,6 +102,7 @@ margin-bottom: 20px;
 margin-top: 30px;
 margin-left: 150px;
 padding: 10px;
+max-width: 470px;
 }
 
 #Formulario section input{
@@ -96,8 +117,19 @@ padding: 10px;
 #Formulario section img{
     width: 20px;
     height: 20px;
-    margin-left: 30px;
+    margin-left: 5px;
 }
+
+.caja-blanca{
+    background-color: white;
+    border-radius: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 6px;
+    padding-bottom: 2px;
+}
+
+
 
 /*Responsive*/
 
