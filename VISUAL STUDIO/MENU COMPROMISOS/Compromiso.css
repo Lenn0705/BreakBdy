@@ -10,14 +10,15 @@ body{
 /* Se usa # en vez de . para citar el id directamente*/
 #barra-control{
     font-family: 'Gilroy', sans-serif;
-    width: auto;
+    width: 30%;
     height: 30%;
-    position: fixed;
     display: flex;
-    margin-left: 200px;
+    margin-left: 400px;
     margin-bottom: 10;
-    padding-top: 0;
-    margin-top: 0;
+    justify-content: flex-end;
+    padding-top: 20px;
+    padding-right: 10px;
+    position: fixed;
 }
 
 #barra-control button{
@@ -29,9 +30,9 @@ body{
     padding-top: 20px;
     padding-bottom: 20px;
     display: flex;
-    align-items: center;
     border-radius: 50px;
     margin-bottom: 20px;
+    justify-content: center;
 }
 
 #barra-control button:hover{
@@ -60,16 +61,17 @@ body{
     text-decoration: none;
     display: block;
     padding: 15px;
+    margin-bottom: 15px;
     align-items: center;
     border-radius: 10px;
-    margin: 0;
+    
     
 }
 
 #menu-barra-der{
     font-family: 'Gilroy', sans-serif;
     height: 80%;
-    width: 150px;
+    width: 40%;
     display: flex;
     margin-left: 150px;
     margin-bottom: 10;
@@ -148,7 +150,7 @@ body{
     
 #Compromiso a:hover{
         border: 5px solid black;
-        transform: scale(1.2);
+        transform: scale(1.02);
         transition: 0.3s ease-in-out;
         background-color: #EEF0E1;
         color: black;
@@ -166,6 +168,23 @@ display: flex;
 flex-direction: column;
     }
 }
+
+@media screen and (max-width: 724px) {
+    #barra-control{
+        margin-left: 300px;
+    }
+}
+
+@media screen and (max-width: 414px) {
+    #barra-control{
+        margin-left: 140px;
+        position: static;
+        border-radius: 30px;
+        background-color: #9e9e9e;
+    }
+}
+
+
 
 @media screen and (max-height: 695px) {
     .imagen , .imagen2 , .imagen3 , .imagen4 {
