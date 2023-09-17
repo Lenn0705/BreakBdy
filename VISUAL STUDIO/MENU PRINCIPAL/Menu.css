@@ -19,6 +19,14 @@ body{
     padding-top: 20px;
     border-radius: 30px;
     margin-top: 20px;
+    
+}
+
+#texto{
+    display: none;
+    text-decoration: none;
+    font-family: 'Gilroy', sans-serif;
+    color: black;
 }
 
 #menu-barra a{

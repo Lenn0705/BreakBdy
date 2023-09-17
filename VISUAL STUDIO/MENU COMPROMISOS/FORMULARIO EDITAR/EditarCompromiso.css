@@ -120,6 +120,7 @@ body{
     padding: 10px;
     }
 
+
 #Formulario section input , #Formulario section select{
     border-radius: 30px;
     margin-top:15px;
@@ -127,6 +128,7 @@ body{
     margin-bottom:15px ;
     margin-right:10px ;
     text-align: center;
+    font-family: 'Gilroy', sans-serif;
 }
 
 /*Responsive*/

@@ -149,7 +149,7 @@ body{
     
 #Evento a:hover{
         border: 5px solid black;
-        transform: scale(1.2);
+        transform: scale(1.02);
         transition: 0.3s ease-in-out;
     }
 
