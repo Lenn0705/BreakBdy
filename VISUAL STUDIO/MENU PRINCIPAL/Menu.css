@@ -35,9 +35,10 @@ body{
     text-decoration: none;
     display: flex;
     padding: 15px;
+    margin-bottom: 15px;
     align-items: center;
     border-radius: 10px;
-    margin: 0;
+ 
 }
 
 #menu-barra-der{
@@ -46,7 +47,6 @@ body{
     width: auto;
     position: absolute;
     margin-left: 450px;
-    margin-bottom: 10;
     padding-top: 20px;
     margin-top: 20px;
     display: flex;

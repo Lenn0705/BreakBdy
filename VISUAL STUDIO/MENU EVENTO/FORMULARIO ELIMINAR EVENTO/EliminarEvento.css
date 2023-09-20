@@ -33,6 +33,7 @@ body{
     align-items: center;
     border-radius: 50px;
     margin-bottom: 20px;
+    margin-top: 30px;
 
 }
 
@@ -105,6 +106,14 @@ body{
     padding-bottom: 20px;
     align-items: center;
     border-radius: 50px;
+}
+
+#menu-barra-der a:hover{
+    background-color: #EEF0E1;
+    color: black;
+    border: 5px solid black;
+    transform: scale(1.2);
+    transition: 0.3s ease-in-out;
 }
 
 #menu-barra a:hover{
@@ -180,6 +189,10 @@ body{
         margin: 0;
         padding: 20px;
         margin-left: 20px;
+    }
+
+    .boton{
+        text-decoration: none;
     }
     
     .boton:hover , .boton2:hover{

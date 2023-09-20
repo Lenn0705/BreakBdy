@@ -10,7 +10,9 @@ document.getElementById("botonRedireccionarEliminar").addEventListener("click", 
     window.location.href = "/VISUAL%20STUDIO/MENU%20TAREAS/ELIMINAR%20TAREA/EliminarTarea.html";
 });
 
-
+document.getElementById("eliminar").addEventListener("click",function(){
+    location.href = "/VISUAL%20STUDIO/MENU%20TAREAS/ELIMINAR%20TAREA/EliminarTarea.html"
+} )
 
 
 //../FORMULARIO%20CREAR/CrearCompromiso.html
