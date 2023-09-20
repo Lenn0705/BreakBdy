@@ -26,6 +26,7 @@ body{
     text-decoration: none;
     display: block;
     padding: 15px;
+    margin-bottom: 15px;
     align-items: center;
     border-radius: 10px;
     margin: 0;
@@ -78,6 +79,7 @@ body{
     width:auto;
     border-radius: 100%;
     background-color: #333333;
+    text-decoration: none;
     color: white;
     font-family: 'Gilroy', sans-serif;  
     text-align: center;
@@ -99,7 +101,7 @@ body{
 #Formulario section{
 border-radius: 20px;
 color: white;
-background-color: #2e2e2e;
+background-color:#b19342;
 margin-bottom: 20px;
 margin-top: 30px;
 margin-left: 150px;
@@ -114,6 +116,8 @@ padding: 10px;
     margin-right:10px ;
     text-align: center;
     font-family: 'Gilroy', sans-serif;  
+    background-color: black;
+    color: white;
 }
 
 /*Responsive*/

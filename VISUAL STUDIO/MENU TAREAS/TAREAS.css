@@ -36,7 +36,7 @@ body{
 }
 
 #barra-control button:hover{
-    background-color: #EEF0E1;
+    background-color: #b19342;
     color: black;
     border: 5px solid black;
     transform: scale(1.2);
@@ -64,8 +64,6 @@ body{
     margin-bottom: 15px;
     align-items: center;
     border-radius: 10px;
-    
-    
 }
 
 #menu-barra-der{
@@ -138,7 +136,7 @@ body{
 }
 
 #Tarea a{
-    background-color: #2e2e2e;
+    background-color: #b19342;
     color: white;
     display: flex;
     flex-direction: column;
