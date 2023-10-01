@@ -34,5 +34,23 @@
     <label for="breakbdy" class="tituloInferior">Ya tienes un usuario?</label>
      <a name="breakbdy" class="tituloInferior" href="sesion.html">Inicia sesion con nosotros</a>
     </form>
+
+<?php
+
+$nombreReal = $_POST['NombReal'];
+$nacimiento = $_POST['fecha'];
+$usuarioBreak = $_POST['NombUsuario'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nombreReal = $_POST['NombReal'];
+    $nacimiento = $_POST['fecha'];
+    $usuarioBreak = $_POST['NombUsuario'];
+    echo "Hola, " . $nombreReal;
+    echo "<br>";
+    echo " naciste el " . $nacimiento;
+    echo "<br>";
+    echo " veo que te has registrado en nuestra aplicacion bajo el nombre de ". $usuarioBreak . ", Bienvenido";
+}
+
+     ?>
 </body>
 </html>
