@@ -13,11 +13,9 @@ function datos($conexion){
     $contra = $_POST['contraseña'];
 
 
-    $meterDatos = "INSERT INTO registro(correoUsuario, nombreReal , ApellidoReal, fechaNacimiento)
-    VALUES ('$correo' , '$nombreReal' , '$apellidoReal' , '$nacimiento') 
-    AND INSERT INTO usuario(nombreUsuario , contraseñaUsuario) VALUES ( '$usuarioBreak' , '$contra')";
+    $meterDatos = "INSERT INTO registro(correoUsuario, nombreReal , ApellidoReal, fechaNacimiento , nombreUsuario , contraseñaUsuario)
+    VALUES ('$correo' , '$nombreReal' , '$apellidoReal' , '$nacimiento' , '$usuarioBreak' , '$contra')";
     mysqli_query($conexion , $meterDatos);
     mysqli_close($conexion);
 }
 
-?>
