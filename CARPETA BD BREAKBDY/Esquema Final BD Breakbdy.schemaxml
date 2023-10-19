@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemadesigner version="6.5">
+<source>
+<database charset="latin1" collation="latin1_swedish_ci">breakbdy</database>
+</source>
+<canvas zoom="100">
+<tables>
+<table name="cantidad compromisos" view="colnames">
+<left>226</left>
+<top>652</top>
+<width>215</width>
+<height>163</height>
+<sql_create_table>CREATE TABLE `cantidad compromisos` (
+  `idCompromiso_has_Tarea` int(11) NOT NULL AUTO_INCREMENT,
+  `Compromiso_idCompromisos` int(11) NOT NULL,
+  `Usuario_idUsuario` int(11) NOT NULL,
+  `horaCompromiso` datetime NOT NULL,
+  `horaFinalizacionCompromiso` datetime NOT NULL,
+  PRIMARY KEY (`idCompromiso_has_Tarea`),
+  KEY `Usuario_idUsuario` (`Usuario_idUsuario`),
+  KEY `Compromiso_idCompromisos` (`Compromiso_idCompromisos`),
+  CONSTRAINT `cantidad compromisos_ibfk_1` FOREIGN KEY (`Usuario_idUsuario`) REFERENCES `usuario` (`idUsuario`),
+  CONSTRAINT `cantidad compromisos_ibfk_2` FOREIGN KEY (`Compromiso_idCompromisos`) REFERENCES `compromisos` (`idCompromisos`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci</sql_create_table>
+</table>
+<table name="cantidad descansos" view="colnames">
+<left>236</left>
+<top>92</top>
+<width>178</width>
+<height>146</height>
+<sql_create_table>CREATE TABLE `cantidad descansos` (
+  `idDescanso_has_Tarea` int(11) NOT NULL AUTO_INCREMENT,
+  `Descanso_idEscanso` int(11) NOT NULL,
+  `Usuario_idUsuario` int(11) NOT NULL,
+  `tiempoDescanso` decimal(10,0) NOT NULL,
+  PRIMARY KEY (`idDescanso_has_Tarea`),
+  KEY `Usuario_idUsuario` (`Usuario_idUsuario`),
+  KEY `Descanso_idEscanso` (`Descanso_idEscanso`),
+  CONSTRAINT `cantidad descansos_ibfk_1` FOREIGN KEY (`Descanso_idEscanso`) REFERENCES `descanso2` (`idEscanso`),
+  CONSTRAINT `cantidad descansos_ibfk_2` FOREIGN KEY (`Usuario_idUsuario`) REFERENCES `usuario` (`idUsuario`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci</sql_create_table>
+</table>
+<table name="cantidad eventos" view="colnames">
+<left>244</left>
+<top>252</top>
+<width>153</width>
+<height>146</height>
+<sql_create_table>CREATE TABLE `cantidad eventos` (
+  `idCantidadEventos` int(11) NOT NULL AUTO_INCREMENT,
+  `Eventos_idEventos` int(11) NOT NULL,
+  `Usuario_idUsuario` int(11) NOT NULL,
+  `horaEvento` datetime NOT NULL,
+  PRIMARY KEY (`idCantidadEventos`),
+  KEY `Usuario_idUsuario` (`Usuario_idUsuario`),
+  KEY `Eventos_idEventos` (`Eventos_idEventos`),
+  CONSTRAINT `cantidad eventos_ibfk_1` FOREIGN KEY (`Usuario_idUsuario`) REFERENCES `usuario` (`idUsuario`),
+  CONSTRAINT `cantidad eventos_ibfk_2` FOREIGN KEY (`Eventos_idEventos`) REFERENCES `eventos` (`idEventos`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci</sql_create_table>
+</table>
+<table name="cantidad tareas" view="colnames">
+<left>236</left>
+<top>454</top>
+<width>149</width>
+<height>163</height>
+<sql_create_table>CREATE TABLE `cantidad tareas` (
+  `idCantidadTareas` int(11) NOT NULL AUTO_INCREMENT,
+  `Usuario_idUsuario` int(11) NOT NULL,
+  `Tarea_idTarea` int(11) NOT NULL,
+  `horaInicio` time NOT NULL,
+  `horaFinalizacion` time NOT NULL,
+  PRIMARY KEY (`idCantidadTareas`),
+  KEY `Usuario_idUsuario` (`Usuario_idUsuario`),
+  KEY `Tarea_idTarea` (`Tarea_idTarea`),
+  CONSTRAINT `cantidad tareas_ibfk_1` FOREIGN KEY (`Usuario_idUsuario`) REFERENCES `usuario` (`idUsuario`),
+  CONSTRAINT `cantidad tareas_ibfk_2` FOREIGN KEY (`Tarea_idTarea`) REFERENCES `tarea` (`idTarea`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci</sql_create_table>
+</table>
+<table name="compromisos" view="colnames">
+<left>6</left>
+<top>630</top>
+<width>183</width>
+<height>146</height>
+<sql_create_table>CREATE TABLE `compromisos` (
+  `idCompromisos` int(11) NOT NULL AUTO_INCREMENT,
+  `nombreCompromiso` varchar(11) NOT NULL,
+  `descripcionCompromiso` varchar(11) NOT NULL,
+  `Prioridad` enum('Alta','Baja') NOT NULL,
+  PRIMARY KEY (`idCompromisos`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci</sql_create_table>
+</table>
+<table name="descanso2" view="colnames">
+<left>17</left>
+<top>83</top>
+<width>165</width>
+<height>146</height>
+<sql_create_table>CREATE TABLE `descanso2` (
+  `idEscanso` int(11) NOT NULL AUTO_INCREMENT,
+  `nombreDescanso` varchar(45) NOT NULL,
+  `descripcionDescanso` varchar(45) NOT NULL,
+  `prioridadDescanso` enum('Alta','Baja') NOT NULL,
+  PRIMARY KEY (`idEscanso`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci</sql_create_table>
+</table>
+<table name="eventos" view="colnames">
+<left>20</left>
+<top>270</top>
+<width>149</width>
+<height>146</height>
+<sql_create_table>CREATE TABLE `eventos` (
+  `idEventos` int(11) NOT NULL AUTO_INCREMENT,
+  `nombreEvento` varchar(11) NOT NULL,
+  `descripcionEvento` tinytext NOT NULL,
+  `Prioridad` enum('Alta','Baja') NOT NULL,
+  PRIMARY KEY (`idEventos`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci</sql_create_table>
+</table>
+<table name="registro" view="colnames">
+<left>812</left>
+<top>334</top>
+<width>148</width>
+<height>180</height>
+<sql_create_table>CREATE TABLE `registro` (
+  `idRegistro` int(11) NOT NULL AUTO_INCREMENT,
+  `correoUsuario` varchar(45) NOT NULL,
+  `nombreReal` varchar(45) NOT NULL,
+  `apellidoReal` varchar(45) NOT NULL,
+  `fechaNacimiento` datetime NOT NULL,
+  `usuarioBreak` varchar(45) NOT NULL,
+  `contraseñaBreak` varchar(45) NOT NULL,
+  PRIMARY KEY (`idRegistro`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci</sql_create_table>
+</table>
+<table name="tarea" view="colnames">
+<left>21</left>
+<top>447</top>
+<width>143</width>
+<height>163</height>
+<sql_create_table>CREATE TABLE `tarea` (
+  `idTarea` int(11) NOT NULL AUTO_INCREMENT,
+  `nombreTarea` varchar(45) NOT NULL,
+  `prioridadTarea` enum('Baja','Alta') NOT NULL,
+  `descripcionTarea` varchar(500) NOT NULL,
+  `estadoTarea` enum('completado','Faltante') NOT NULL,
+  PRIMARY KEY (`idTarea`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci</sql_create_table>
+</table>
+<table name="usuario" view="colnames">
+<left>612</left>
+<top>342</top>
+<width>152</width>
+<height>129</height>
+<sql_create_table>CREATE TABLE `usuario` (
+  `idUsuario` int(11) NOT NULL AUTO_INCREMENT,
+  `registro_usuarioBreak` int(11) NOT NULL,
+  `registro_contraseñaBreak` int(11) NOT NULL,
+  PRIMARY KEY (`idUsuario`),
+  CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `registro` (`idRegistro`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci</sql_create_table>
+</table>
+</tables>
+</canvas>
+</schemadesigner>
