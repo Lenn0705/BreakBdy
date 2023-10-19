@@ -1,0 +1,6 @@
+{
+    "_idCompromisos":"ObjectId",
+    "nombreCompromiso": "String",
+    "descripcionCompromiso":"String",
+    "estadoCompromiso":["alta", "baja"]
+}

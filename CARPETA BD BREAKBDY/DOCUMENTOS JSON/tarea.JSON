@@ -1,0 +1,7 @@
+{
+    "_idTarea" : "Objectid",
+    "nombreTarea": "String",
+    "prioridadTarea": ["Baja", "Alta"],
+    "descripcionTarea": "String",
+    "estadoTarea": ["completado","faltante"]
+}

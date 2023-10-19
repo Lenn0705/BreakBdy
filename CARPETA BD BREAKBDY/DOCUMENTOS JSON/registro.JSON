@@ -1,0 +1,8 @@
+{
+    "_idRegistro": "ObjectId",
+    "correoUsuario": "String",
+    "nombreReal": "String",
+    "fechaNacimiento": "Date",
+    "usuarioBreak": "String",
+    "contraseñaBreak": "Password"
+}
