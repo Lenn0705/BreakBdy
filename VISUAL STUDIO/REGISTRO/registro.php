@@ -22,46 +22,62 @@
 
 class Conexion{
 public function conectar(){
+    if($_SERVER["REQUEST_METHOD"] == "POST"){
+/*Extraccion de datos*/
+
+    $nombreReal = $_POST['NombReal'];
+    $apellidos = $_POST['ApellReal'];
+    $nacimiento = $_POST['fecha'];
+    $correo = $_POST['Correo'];
+    $UsuarioBreak = $_POST['NombUsuario'];
+    $ContraseñaBreak = $_POST['contraseña'];
+
     try{
+
+        //creamos la cadena de conexion para la base de datos
+
         $servidor = 'localhost';
         $usuario = " ";
         $contraseña = " ";
         $baseDatos = "BREAKBDY";
         $puerto = "27017";
-    
         $cadenConexion = "mongodb://" .
         $usuario . ":" . 
         $contraseña . "@" .
         $servidor . ":" .
         $puerto . "/" .
         $baseDatos;
+
+        //creamos la variable de conexion con la base de datos
+        //definimos la variable breakbdy como la base de datos del cliente
+        //definimos la variable usuario como la coleccion dentro de la base de datos
+
+        $clients = new MongoDB\Client($cadenConexion);
+        $breakbdy = $clients->selectDatabase("BREAKBDY");
+        $usuario = $breakbdy->selectCollection("usuario");
+
+        /*Conversion de los datos a un arreglo */
+
+        $registro = [
+            'nombreReal' => $nombreReal,
+         'ApellidosReales' => $apellidos,
+         'fechaNacimiento' => $nacimiento,
+         'CorreoElectronico' => $correo,
+         'usuarioBreak' => $UsuarioBreak,
+         'contraseñaBreak' => $ContraseñaBreak
+        ];
     
-        $cliente = new MongoDB\Client($cadenConexion)
-        return $cliente->selectDatabase($baseDatos);
-    }catch(\Trhowable $th){
+        $usuario ->insertOne($registro);
+
+
+        return "<h1 class='titulos'>El registro ha sido exitoso</h1>";
+    }catch(\Throwable $th){
 return $th->getmessage();
     }
-
 }
 }
-
-
-$conexion = mysqli_connect('localhost', 'root' , '' , 'breakbdy')or die(mysqli_error($mysqli));
-
-datos($conexion);
-
-function datos($conexion){
-    $nombreReal = $_POST['NombReal'];
-    $nacimiento = $_POST['fecha'];
-    $usuarioBreak = $_POST['NombUsuario'];
-    $correo = $_POST['Correo'];
-    $apellidoReal = $_POST['ApellReal'];
-    $contra = $_POST['contraseña'];
-
-
-    $meterDatos = "INSERT INTO registro(correoUsuario, nombreReal , ApellidoReal, fechaNacimiento , nombreUsuario , contraseñaUsuario)
-    VALUES ('$correo' , '$nombreReal' , '$apellidoReal' , '$nacimiento' , '$usuarioBreak' , '$contra')";
-    mysqli_query($conexion , $meterDatos);
-    mysqli_close($conexion);
 }
+
+
+
 
