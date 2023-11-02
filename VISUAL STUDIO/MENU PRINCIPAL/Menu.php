@@ -1,3 +1,11 @@
+<?php
+if(!isset($_SESSION['usuario'])){
+    header('Location:iniciarSesion.php');
+    exit();
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
