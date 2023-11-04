@@ -14,14 +14,22 @@
 <body>
     <img id="logo" src="/VISUAL STUDIO/IMAGENES BREAKBDY/Imagen-logo.jpeg" alt="">
     <h1 class="titulos">El registro ha sido exitoso</h1>
-    <a class="boton" href="../INICIO DE SESION/sesion.html">Volver a Iniciar Sesion</a>
+    <a class="boton" href="../INICIO DE SESION/iniciarSesion.php">Volver a Iniciar Sesion</a>
 </body>
 </html>
 
 <?php
 
-class Conexion{
-public function conectar(){
+
+use MongoDB\BSON\ObjectId;
+use MongoDB\Model\BSONDocument;
+use MongoDB\Client;
+
+
+
+function conectar(){
+    
+
     if($_SERVER["REQUEST_METHOD"] == "POST"){
 /*Extraccion de datos*/
 
@@ -37,8 +45,8 @@ public function conectar(){
         //creamos la cadena de conexion para la base de datos
 
         $servidor = 'localhost';
-        $usuario = " ";
-        $contraseña = " ";
+        $usuario = "samuel";
+        $contraseña = "123456";
         $baseDatos = "BREAKBDY";
         $puerto = "27017";
         $cadenConexion = "mongodb://" .
@@ -52,31 +60,34 @@ public function conectar(){
         //definimos la variable breakbdy como la base de datos del cliente
         //definimos la variable usuario como la coleccion dentro de la base de datos
 
+        require_once '/xampp/htdocs/BreakBdy/vendor/autoload.php';
+
         $clients = new MongoDB\Client($cadenConexion);
         $breakbdy = $clients->selectDatabase("BREAKBDY");
-        $usuario = $breakbdy->selectCollection("usuario");
+
+        $usser = $breakbdy->selectCollection("usuario");
 
         /*Conversion de los datos a un arreglo */
 
         $registro = [
-            'nombreReal' => $nombreReal,
+         'nombreReal' => $nombreReal,
          'ApellidosReales' => $apellidos,
          'fechaNacimiento' => $nacimiento,
          'CorreoElectronico' => $correo,
          'usuarioBreak' => $UsuarioBreak,
-         'contraseñaBreak' => $ContraseñaBreak
+         'contraseñaBreak' => $ContraseñaBreak,
+         '_id' => uniqid(),
         ];
     
-        $usuario ->insertOne($registro);
-
+        $usser ->insertOne($registro);
 
         return "<h1 class='titulos'>El registro ha sido exitoso</h1>";
     }catch(\Throwable $th){
-return $th->getmessage();
+        echo "Error: " . $th->getMessage();
     }
 }
 }
-}
+conectar();
 
 
 
