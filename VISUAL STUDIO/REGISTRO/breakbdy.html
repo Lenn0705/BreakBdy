@@ -12,27 +12,34 @@
     <title>Registro BreakBdy</title>
 </head>
 <body >
-<form action="../MENU PRINCIPAL/Menu.html">
-    <img id="logo" src="https://github.com/Lenn0705/BreakBdy/blob/rama-de-samuel/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-logo.jpeg?raw=true" alt="">
-<input type="text" name="NombReal" id="" class="entradas" placeholder="ingrese su nombre real">
-<label for="NombReal" class="titulos">Ingrese su nombre:</label>
+    
+<form action="registro.php" method="post">
+    <img id="logo" src="/VISUAL STUDIO/IMAGENES BREAKBDY/Imagen-logo.jpeg" alt="">
+    
+    <input type="text" name="NombReal" id="" class="entradas" placeholder="ingrese su Nombre real">
+    <label for="NombReal" class="titulos">Ingrese sus Nombres</label>
 
+    <input type="text" name="ApellReal" id="" class="entradas" placeholder="ingrese su Apellido real">
+    <label for="ApellReal" class="titulos">Ingrese sus Apellido</label>
 
-<input type="datetime-local" name="fecha" id="" class="entradas">
-<label for="fecha" class="titulos">Ingrese su Fecha de nacimiento</label>
+    <input type="date" name="fecha" id="" class="entradas">
+    <label for="fecha" class="titulos">Ingrese su Fecha de nacimiento</label>
 
+    <input type="text" name="Correo" id="" class="entradas" placeholder="ingrese su Correo">
+    <label for="Correo" class="titulos">Ingrese su Correo</label>
 
-    <input name="NombUsuario" class="entradas" type="text" placeholder="Escriba el usuario">
+    <input name="NombUsuario" class="entradas" type="text" placeholder="Escriba el Usuario">
     <label class="titulos" for="titulos">Ingrese Su usuario BreakBdy</label>
 
   
-    <input name="contraseña" class="entradas" type="password" placeholder="Escriba la contraseña">
+    <input name="contraseña" class="entradas" type="password" placeholder="Escriba la Contraseña">
     <label for="contraseña" class="titulos">Ingrese su contraseña BreakBdy</label>
 
     <input type="submit" value="Ingresar" class="boton">
     
     <label for="breakbdy" class="tituloInferior">Ya tienes un usuario?</label>
-     <a name="breakbdy" class="tituloInferior" href="sesion.html">Inicia sesion con nosotros</a>
+     <a class="tituloInferior" href="sesion.html">Inicia sesion con nosotros</a>
+
     </form>
 </body>
 </html>

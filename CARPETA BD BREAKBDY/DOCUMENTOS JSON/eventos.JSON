@@ -1,0 +1,6 @@
+{
+    "_idEventos":"ObjectId",
+    "nombreEvento":"String",
+    "descripcionEvento":"String",
+    "Prioridad": ["alta","baja"]
+}

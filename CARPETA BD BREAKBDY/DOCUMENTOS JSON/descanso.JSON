@@ -1,0 +1,6 @@
+{
+    "idDescanso" : "ObjectId",
+    "nombreDescanso": "String",
+    "descripcionDescanso": "String",
+    "prioridadDescanso": ["alta","baja"]
+}
