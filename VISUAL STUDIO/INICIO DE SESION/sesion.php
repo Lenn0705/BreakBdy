@@ -1,49 +1,58 @@
 <?php
 
+use MongoDB\BSON\ObjectId;
+use MongoDB\Model\BSONDocument;
+use MongoDB\Client;
 use MongoDB\Operation\FindOne;
+require_once '/xampp/htdocs/BreakBdy/CONFIGURACIONES/config.php';
 
 if($_SERVER['REQUEST_METHOD']== 'POST'){
 
-    // funcion que reconocera los datos como validos o invalidos
+    // extraemos los datos ingresados
 
-    function IniciarSesion(){
-
-    
-        // extraemos los datos ingresados
-
-        $usuario = $_POST['NombUsuario'];
-        $contraseña = $_POST['contraseña'];
+    $usuarioBreak = $_POST['NombUsuario'];
+    $contraseñaBreak = $_POST['contraseña'];
 
         //creamos la cadena de conexion para la base de datos
 
-        $servidor = 'localhost';
-        $baseDatos = "BREAKBDY";
-        $puerto = "27017";
         $cadenConexion = "mongodb://" .
-        $usuario . ":" . 
-        $contraseña . "@" .
-        $servidor . ":" .
-        $puerto . "/" .
-        $baseDatos;
+        $db_components['usuario'] . ":" . 
+        $db_components['contraseña'] . "@" .
+        $db_components['servidor'] . ":" .
+        $db_components['puerto'] . "/" .
+        $db_components['baseDatos'];
 
         //seleccion de la base de datos y la coleccion donde buscara la informacion
 
+        require_once '/xampp/htdocs/BreakBdy/vendor/autoload.php';
+
         $clients = new MongoDB\Client($cadenConexion);
         $breakbdy = $clients->selectDatabase("BREAKBDY");
-
         $datos = $breakbdy->selectCollection("usuario");
-        $usser = $datos ->FindOne($usuario , $contraseña);
+        
+        $usser = $datos ->FindOne(['usuarioBreak' => $usuarioBreak]);
 
         if($usser){
-            //datos ingresados correctamente
-            header('Location:Menu.php');
+
+            $hash = $usser['contraseñaBreak'];
+            if(password_verify($contraseñaBreak, $hash)){
+
+                            //datos ingresados correctamente
+            session_start();
+            $_SESSION['usuario'] = $usuario;
+            header('Location:../MENU PRINCIPAL/Menu.php');
+            exit;
+            }else{
+                echo "<h3 class='titulos'>Esta contraseña no es valida</h3>";
+            }
+     
         }else{
             //datos ingresados incorrectamente
-            echo "<h3 class='titulos'>Este usuario o contraseña no esta agendado con nosotros</h3>";
+            echo "<h3 class='titulos'>Este usuario no esta agendado con nosotros</h3>";
         }
         }
 
-}
-IniciarSesion();
+
+
 
 ?>

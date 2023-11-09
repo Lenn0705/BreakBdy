@@ -13,21 +13,20 @@
 </head>
 <body>
     <img id="logo" src="/VISUAL STUDIO/IMAGENES BREAKBDY/Imagen-logo.jpeg" alt="">
-    <h1 class="titulos">El registro ha sido exitoso</h1>
     <a class="boton" href="../INICIO DE SESION/iniciarSesion.php">Volver a Iniciar Sesion</a>
 </body>
 </html>
 
 <?php
 
-
+//elementos requeridos
 use MongoDB\BSON\ObjectId;
 use MongoDB\Model\BSONDocument;
 use MongoDB\Client;
 
+require_once '/xampp/htdocs/BreakBdy/CONFIGURACIONES/config.php';
 
-
-function conectar(){
+function conectar($db_components){
     
 
     if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -42,19 +41,17 @@ function conectar(){
 
     try{
 
+
         //creamos la cadena de conexion para la base de datos
 
-        $servidor = 'localhost';
-        $usuario = "samuel";
-        $contraseña = "123456";
-        $baseDatos = "BREAKBDY";
-        $puerto = "27017";
+
+
         $cadenConexion = "mongodb://" .
-        $usuario . ":" . 
-        $contraseña . "@" .
-        $servidor . ":" .
-        $puerto . "/" .
-        $baseDatos;
+        $db_components['usuario'] . ":" . 
+        $db_components['contraseña'] . "@" .
+        $db_components['servidor'] . ":" .
+        $db_components['puerto'] . "/" .
+        $db_components['baseDatos'];
 
         //creamos la variable de conexion con la base de datos
         //definimos la variable breakbdy como la base de datos del cliente
@@ -75,19 +72,19 @@ function conectar(){
          'fechaNacimiento' => $nacimiento,
          'CorreoElectronico' => $correo,
          'usuarioBreak' => $UsuarioBreak,
-         'contraseñaBreak' => $ContraseñaBreak,
+         'contraseñaBreak' => password_hash($ContraseñaBreak, PASSWORD_DEFAULT),
          '_id' => uniqid(),
         ];
     
         $usser ->insertOne($registro);
 
-        return "<h1 class='titulos'>El registro ha sido exitoso</h1>";
+        echo "<h1 class='titulos'>El registro ha sido exitoso</h1>";
     }catch(\Throwable $th){
         echo "Error: " . $th->getMessage();
     }
 }
 }
-conectar();
+conectar($db_components);
 
 
 
