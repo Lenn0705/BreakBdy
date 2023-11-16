@@ -39,7 +39,7 @@ if($_SERVER['REQUEST_METHOD']== 'POST'){
 
                             //datos ingresados correctamente
             session_start();
-            $_SESSION['usuario'] = $usuario;
+            $_SESSION['usuario'] = $usuarioBreak;
             header('Location:../MENU PRINCIPAL/Menu.php');
             exit;
             }else{

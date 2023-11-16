@@ -30,6 +30,7 @@
 
 <div class="menu-der-usser">
     <div class="menu-der-usser-extra">
+        <form action="Usuario.php" method="post">
     <section>
         <label for="Nombre">Nombre Real:</label>
         <Input type="text" name="Nombre"></Input>
@@ -51,12 +52,18 @@
         <label for="Correo">Correo:</label>
         <Input type="text" name="Correo"></Input>
     </section>
+    <section>
+        <Input type="submit" name="Cambiar_datos">Modificar datos</Input>
+    </section>
+    </form>
        </div>
     </div>
 </div>
 <div>
     <section id="barra-control">
-        <button>Log Out</button>
+        <form action="CerrarSesion.php" method="post">
+        <input type="submit" name = "cerrar_sesion" id = "boton_cerrar_sesion">
+        </form>
         <button>←</button>
     </section>
   </div>
@@ -64,3 +71,70 @@
 
 </body>
 </html>
+
+<?php
+use MongoDB\Client;
+use MongoDB\Collection;
+use MongoDB\Operation\ReplaceOne;
+use MongoDB\Operation\FindOneAndReplace;
+
+//boton para cerrar sesion
+
+if(isset($_POST['cerrar_sesion'])){
+    session_destroy();
+}
+
+if(isset($_POST['Cambiar_datos'])){
+
+    $nombre = $_POST['Nombre'];
+    $Apellido = $_POST['Apellido'];
+    $Usuario = $_POST['Usuario'];
+    $Contraseña = $_POST['Contraseña'];
+    $Correo = $_POST['Correo'];
+
+try{
+
+require_once '../BreakBdy/CONFIGURACIONES/config.php';
+
+$cadenConexion = "mongodb://" .
+$db_components['usuario'] . ":" . 
+$db_components['contraseña'] . "@" .
+$db_components['servidor'] . ":" .
+$db_components['puerto'] . "/" .
+$db_components['baseDatos'];
+    
+require_once '/xampp/htdocs/BreakBdy/vendor/autoload.php';
+
+    $cliente = new MongoDB\Client($cadenConexion);
+    $breakbdy = $cliente ->selectDatabase('BREAKBDY');
+    $coleccion = $breakbdy -> selectCollection('usuarios');
+
+    $datos_cambiados = [
+        'nombreReal' => $nombre,
+        'ApellidosReales' => $Apellido,
+        'usuarioBreak' => $Usuario,
+        'contraseñaBreak' => password_hash($Contraseña, PASSWORD_DEFAULT),
+        'CorreoElectronico' => $Correo,
+    ];
+
+    $criterios_busqueda = [
+        'nombreReal' => $_SESSION('nombUsuario'),
+        'usuarioBreak' => $_SESSION('usuarioBreak')
+    ];
+
+$busqueda = ReplaceOne($criterios_busqueda, $datos_cambiados);
+
+if ($busqueda->getModifiedCount() > 0) {
+    echo "LOS DATOS SE HAN AGENDADO SATISFACTORIAMENTE .\n";
+} else {
+    echo "LOS DATOS NO SE HAN REEMPLAZADO SATISFACTORIAMENTE .\n";
+}
+
+    }catch(\Throwable $th){
+        echo "Error: " . $th->getMessage();
+    }
+}
+
+
+
+?>
