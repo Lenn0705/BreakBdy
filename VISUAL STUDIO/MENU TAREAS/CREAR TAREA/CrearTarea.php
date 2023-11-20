@@ -20,7 +20,7 @@
       </div>
 
     <div class="col-md-1" >
-        <form action="" method="get" id="Formulario">
+        <form method="post" action="CrearTarea.php" id="Formulario">
         <section class="">
             
         <label for="Nombre">Nombre:</label>
@@ -31,31 +31,104 @@
             <input type="text" name="Nombre" id="Nombre">
         </section>
         <section>
-            <label for="Hora">Hora:</label>
-            <input type="time" name="Hora" id="Hora">
+            <label for="HoraInicial">Hora Inicial:</label>
+            <input type="time" name="HoraInicial" id="Hora">
+            <label for="HoraFinal">Hora Final:</label>
+            <input type="time" name="HoraFinal" id="Hora">
         </section>
         <section>
         <label for="Prioridad">Prioridad:</label><select name="Prioridad" id="Prioridad">
-            <option value="0">Baja</option>
-            <option value="1">Alta</option>
+            <option value="Baja">Baja</option>
+            <option value="Alta">Alta</option>
         </select>
         </section>
-    </form>
     </div>
     <div class="col-md-1">
-        <form action="" method="get" id="Formulario">
+        
         <section>
 <label for="Fecha">Fecha:</label>
 <input type="date" name="Fecha" id="Fecha">
-
         </section>
         <section class="botones-control">
             <a class="boton" href="../Tareas.html">←</a>
         <script src="/VISUAL STUDIO/MENU TAREAS/Tareas.js"></script>
-            <button class="boton"> + </button>
+            <input type="submit" class="boton" value="+"></input>
         </section>
     </form>
     </div>
-
 </body>
 </html>
+
+<?php 
+use MongoDB\BSON\ObjectId;
+use MongoDB\Model\BSONDocument;
+use MongoDB\Client;
+use MongoDB\Operation\FindOne;
+use MongoDB\Operation\InsertOne;
+
+
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+
+// insertamos los datos del formulario
+
+$nombreTarea = $_POST['Nombre'];
+$descripcionTarea = $_POST['Descripcion'];
+$prioridadTarea = $_POST['Prioridad'];
+$horaFinal = $_POST['HoraFinal'];
+$horaInicial = $_POST['HoraInicial'];
+
+try{
+
+// traemos un archivo con los datos para el ingreso a la base de datos
+
+require_once '/xampp/htdocs/BREAKBDY/VISUAL STUDIO/INICIO DE SESION/sesion.php';
+
+        //creamos la cadena de conexion para la base de datos
+
+        $cadenConexion = "mongodb://" .
+        $db_components['usuario'] . ":" . 
+        $db_components['contraseña'] . "@" .
+        $db_components['servidor'] . ":" .
+        $db_components['puerto'] . "/" .
+        $db_components['baseDatos'];
+
+        //seleccion de la base de datos y la coleccion donde buscara la informacion
+
+        require_once '/xampp/htdocs/BreakBdy/vendor/autoload.php';
+
+        $clients = new MongoDB\Client($cadenConexion);
+        $breakbdy = $clients->selectDatabase("BREAKBDY");
+
+// definimos la coleccion de las tareas
+
+$tareas = $breakbdy ->selectCollection('tareas');
+
+// convertimos los datos en una coleccion
+
+$datosTarea = [
+    'asignado' =>$_SESSION['usuarioBreak'],
+    'nombreTarea' => $nombreTarea,
+    'descripcionTarea' => $descripcionTarea,
+    'prioridadTarea' => $prioridadTarea,
+    'hora' => [
+        'horaInicial' => $horaInicial,
+        'horaFinal'=> $horaFinal
+    ],
+    '_id' => uniqid()
+    ];
+
+    //insertamos los datos
+
+    $insertarTarea = $tareas ->insertOne($datosTarea);
+
+if($insertarTarea){
+    echo "la tarea se inserto correctamente";
+}else{
+    echo "ups, hubo un problema agendando";
+}
+}catch(\Throwable $e){
+    echo "Error: " . $e->getMessage();
+}
+
+ }
+?>
