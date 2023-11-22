@@ -27,8 +27,10 @@
         <input type="text" name="nombre" id="nombre">
         </section>
         <section>
+
             <label for="descripcion">Descripcion:</label>
             <input type="text" name="descripcion" id="descripcion">
+
         </section>
         <section>
             <label for="HoraInicial">Hora Inicial:</label>
@@ -56,17 +58,20 @@
 </html>
 
 <?php 
+
 session_start();
+
 use MongoDB\BSON\ObjectId;
 use MongoDB\Model\BSONDocument;
 use MongoDB\Client;
 use MongoDB\Operation\FindOne;
 use MongoDB\Operation\InsertOne;
+
 // traemos un archivo con los datos para el ingreso a la base de datos
 require '/xampp/htdocs/BREAKBDY/VISUAL STUDIO/INICIO DE SESION/sesion.php';
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
-// insertamos los datos del formulario
+
 
 $nombreTarea = $_POST['nombre'];
 $descripcionTarea = $_POST['descripcion'];
@@ -75,9 +80,25 @@ $horaFinal = $_POST['HoraFinal'];
 $horaInicial = $_POST['HoraInicial'];
 $fechaTarea = $_POST['fecha'];
 
+
+
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+
+// insertamos los datos del formulario
+
+$nombreTarea = $_POST['Nombre'];
+$descripcionTarea = $_POST['Descripcion'];
+$prioridadTarea = $_POST['Prioridad'];
+$horaFinal = $_POST['HoraFinal'];
+$horaInicial = $_POST['HoraInicial'];
+
+
 try{
 
 // traemos un archivo con los datos para el ingreso a la base de datos
+
+require_once '/xampp/htdocs/BREAKBDY/VISUAL STUDIO/INICIO DE SESION/sesion.php';
+
 
         //creamos la cadena de conexion para la base de datos
 
@@ -107,6 +128,7 @@ $datosTarea = [
     'descripcionTarea' => $descripcionTarea,
     'prioridadTarea' => $prioridadTarea,
     'fechaTarea' => $fechaTarea,
+
     'hora' => [
         'horaInicial' => $horaInicial,
         'horaFinal'=> $horaFinal
@@ -119,13 +141,17 @@ $datosTarea = [
     $insertarTarea = $tareas ->insertOne($datosTarea);
 
 if($insertarTarea){
+
     echo "AGENDADO!!!";
+
+    echo "la tarea se inserto correctamente";
 }else{
     echo "ups, hubo un problema agendando";
 }
 }catch(\Throwable $e){
     echo "Error: " . $e->getMessage();
 }
-
+}
  }
+
 ?>
