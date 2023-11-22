@@ -22,7 +22,7 @@
     <input name="contraseña" class="entradas" type="password" placeholder="Escriba la contraseña">
     <label for="contraseña" class="titulos">Ingrese su contraseña BreakBdy</label>
 
-    <input type="submit" value="Ingresar" class="boton">
+    <input type="submit" value="Ingresar" name="iniciar_sesion" class="boton">
     
      <a name="breakbdy" class="tituloInferior" href="https://breakbdy.ccvcolombia.com.co/">Olvidaste tu contraseña?...</a>
      <a name="breakbdy" class="tituloInferior" href="/VISUAL STUDIO/REGISTRO/breakbdy.html">No te has agendado con nosotros..</a>

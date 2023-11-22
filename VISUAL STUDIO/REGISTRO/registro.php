@@ -75,7 +75,7 @@ function conectar($db_components){
          'contraseñaBreak' => password_hash($ContraseñaBreak, PASSWORD_DEFAULT),
          '_id' => uniqid(),
         ];
-    
+        
         $usser ->insertOne($registro);
 
         echo "<h1 class='titulos'>El registro ha sido exitoso</h1>";

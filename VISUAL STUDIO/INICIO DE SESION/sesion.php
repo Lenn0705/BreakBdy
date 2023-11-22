@@ -6,7 +6,7 @@ use MongoDB\Client;
 use MongoDB\Operation\FindOne;
 require_once '/xampp/htdocs/BreakBdy/CONFIGURACIONES/config.php';
 
-if($_SERVER['REQUEST_METHOD']== 'POST'){
+if(isset($_POST['iniciar_sesion'])){
 
     // extraemos los datos ingresados
 
@@ -37,9 +37,12 @@ if($_SERVER['REQUEST_METHOD']== 'POST'){
             $hash = $usser['contraseñaBreak'];
             if(password_verify($contraseñaBreak, $hash)){
 
-                            //datos ingresados correctamente
+            //datos ingresados correctamente
+
+            //inicia una sesion
             session_start();
-            $_SESSION['usuario'] = $usuarioBreak;
+            //guarda el dato del usuario para mas adelante
+            $_SESSION['usuarioBreak'] = $usuarioBreak;
             header('Location:../MENU PRINCIPAL/Menu.php');
             exit;
             }else{

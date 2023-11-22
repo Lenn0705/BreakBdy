@@ -26,7 +26,16 @@
       </div>
       <div class="menu-der-usser">
         <a href="#Cambiar imagen de perfil"><img src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Calendario.png?raw=true" alt=""></a>
-        <h1>Usser 238128381</h1>
+       <?php
+       session_start();
+
+       use MongoDB\BSON\ObjectId;
+       use MongoDB\Model\BSONDocument;
+       use MongoDB\Operation\FindOne;
+       use MongoDB\Operation\InsertOne;
+
+       require '/xampp/htdocs/BREAKBDY/VISUAL STUDIO/INICIO DE SESION/sesion.php';
+       echo "<h1>{$_SESSION['usuarioBreak']}</h1>"; ?>
 
 <div class="menu-der-usser">
     <div class="menu-der-usser-extra">
@@ -53,7 +62,7 @@
         <Input type="text" name="Correo"></Input>
     </section>
     <section>
-        <Input type="submit" name="Cambiar_datos">Modificar datos</Input>
+        <Input type="submit" name="Cambiar_datos" value="modificar datos"></Input>
     </section>
     </form>
        </div>
@@ -61,8 +70,8 @@
 </div>
 <div>
     <section id="barra-control">
-        <form action="CerrarSesion.php" method="post">
-        <input type="submit" name = "cerrar_sesion" id = "boton_cerrar_sesion">
+        <form action="Usuario.php" method="post">
+        <input type="submit" name = "cerrar_sesion" id = "boton_cerrar_sesion"></Input>
         </form>
         <button>←</button>
     </section>
@@ -82,6 +91,7 @@ use MongoDB\Operation\FindOneAndReplace;
 
 if(isset($_POST['cerrar_sesion'])){
     session_destroy();
+    
 }
 
 if(isset($_POST['Cambiar_datos'])){
@@ -118,14 +128,14 @@ require_once '/xampp/htdocs/BreakBdy/vendor/autoload.php';
     ];
 
     $criterios_busqueda = [
-        'nombreReal' => $_SESSION('nombUsuario'),
         'usuarioBreak' => $_SESSION('usuarioBreak')
     ];
 
-$busqueda = ReplaceOne($criterios_busqueda, $datos_cambiados);
+$busqueda = $coleccion ->replaceOne($criterios_busqueda, $datos_cambiados);
 
 if ($busqueda->getModifiedCount() > 0) {
     echo "LOS DATOS SE HAN AGENDADO SATISFACTORIAMENTE .\n";
+    header('Location:../INICIO DE SESION/iniciarSesion.php');
 } else {
     echo "LOS DATOS NO SE HAN REEMPLAZADO SATISFACTORIAMENTE .\n";
 }
