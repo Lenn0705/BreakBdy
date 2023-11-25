@@ -36,7 +36,15 @@
        use MongoDB\Operation\InsertOne;
 
        require '/xampp/htdocs/BREAKBDY/VISUAL STUDIO/INICIO DE SESION/sesion.php';
-       echo "<h1>{$_SESSION['usuarioBreak']}</h1>"; ?>
+       echo "<h1>{$_SESSION['usuarioBreak']}</h1>";
+       
+    //    traeremos la consulta del usuario para mostrar sus datos 
+    $consultaUsuario = $breakbdy ->selectCollection('usuario');
+
+    $especificacion = ['usuarioBreak' => $_SESSION['usuarioBreak']];
+    $consultarUsuarioUnico = $consultaUsuario -> find($especificacion);
+    $resultadoConsultaUsuario = $consultarUsuarioUnico -> toArray();
+       ?>
 
 
 <div class="menu-der-usser">
@@ -44,24 +52,24 @@
         <form action="Usuario.php" method="post">
     <section>
         <label for="Nombre">Nombre Real:</label>
-        <Input type="text" name="Nombre"></Input>
+        <Input type="text" name="Nombre" value = "<?php echo $resultadoConsultaUsuario['nombreReal'];?>"></Input>
     </section>
     <section>
         <label for="Apellido">Apellido Real:</label>
-        <Input type="text" name="Apellido"></Input>
+        <Input type="text" name="Apellido" value="<?php echo $resultadoConsultaUsuario['ApellidosReales'];?>"></Input>
     </section>
     <div class="menu-der-usser-extra">
     <section>
         <label for="Usuario">Nombre de Usuario:</label>
-        <Input type="text" name="Usuario"></Input>
+        <Input type="text" name="Usuario" value = "<?php echo $resultadoConsultaUsuario['usuarioBreak'];?>"></Input>
     </section>
-    <section>
+    <!-- <section>
         <label for="Contraseña">Contraseña:</label>
         <Input type="password" name="Contraseña"></Input>
-    </section>
+    </section> -->
     <section>
         <label for="Correo">Correo:</label>
-        <Input type="text" name="Correo"></Input>
+        <Input type="text" name="Correo" value="<?php echo $resultadoConsultaUsuario['Correo'];?>"></Input>
     </section>
     <section>
         <Input type="submit" name="Cambiar_datos" value="modificar datos"></Input>
@@ -75,7 +83,7 @@
         <form action="Usuario.php" method="post">
         <input type="submit" name = "cerrar_sesion" id = "boton_cerrar_sesion"></Input>
         </form>
-        <button>←</button>
+        <button onclick="location.href='../MENU PRINCIPAL/Menu.php'">←</button>
     </section>
   </div>
       </div>
@@ -125,7 +133,7 @@ require_once '/xampp/htdocs/BreakBdy/vendor/autoload.php';
         'nombreReal' => $nombre,
         'ApellidosReales' => $Apellido,
         'usuarioBreak' => $Usuario,
-        'contraseñaBreak' => password_hash($Contraseña, PASSWORD_DEFAULT),
+        // 'contraseñaBreak' => password_hash($Contraseña, PASSWORD_DEFAULT),
         'CorreoElectronico' => $Correo,
     ];
 

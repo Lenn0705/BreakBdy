@@ -68,7 +68,7 @@ $resultadoConsultaTarea = $consultaTarea ->toArray();
     <section id="Tarea" name="Tarea">
     
       <?php foreach($resultadoConsultaTarea as $documento){?>
-          <a href="../MENU TAREAS/EDITAR TAREA/EditarTarea.html">
+          <a href="../MENU TAREAS/EDITAR TAREA/EditarTarea.php=?id=<?php echo $documento['id']?>">
             <?php echo $documento['nombreTarea']. "<br>"; ?>
             <p><?php echo $documento['descripcionTarea']. "<br>";?></p>
             <p><?php echo $documento['hora']['horaInicial'] . " - " . $documento['hora']['horaFinal']. "<br>"; ?></p>

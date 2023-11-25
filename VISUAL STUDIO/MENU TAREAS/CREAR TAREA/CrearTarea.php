@@ -50,7 +50,7 @@
         </section>
         <section class="botones-control">
             <input type="submit" class="boton" value="+"></input>
-            <a class="boton" href="../Tareas.html">←</a>
+            <a class="boton" href="../Tareas.php">←</a>
         </section>
         </form>
     </div>
@@ -79,19 +79,6 @@ $prioridadTarea = $_POST['Prioridad'];
 $horaFinal = $_POST['HoraFinal'];
 $horaInicial = $_POST['HoraInicial'];
 $fechaTarea = $_POST['fecha'];
-
-
-
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
-
-// insertamos los datos del formulario
-
-$nombreTarea = $_POST['Nombre'];
-$descripcionTarea = $_POST['Descripcion'];
-$prioridadTarea = $_POST['Prioridad'];
-$horaFinal = $_POST['HoraFinal'];
-$horaInicial = $_POST['HoraInicial'];
-
 
 try{
 
@@ -152,6 +139,5 @@ if($insertarTarea){
     echo "Error: " . $e->getMessage();
 }
 }
- }
 
 ?>
