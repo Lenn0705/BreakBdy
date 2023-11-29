@@ -43,6 +43,7 @@ if(isset($_POST['iniciar_sesion'])){
             session_start();
             //guarda el dato del usuario para mas adelante
             $_SESSION['usuarioBreak'] = $usuarioBreak;
+            $_SESSION['contraseñaBreak'] = $contraseñaBreak;
             header('Location:../MENU PRINCIPAL/Menu.php');
             exit;
             }else{

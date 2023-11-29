@@ -50,6 +50,7 @@
         </section>
         <section class="botones-control">
             <input type="submit" class="boton" value="+"></input>
+            </form>
             <a class="boton" href="../Tareas.php">←</a>
         </section>
         </form>
@@ -129,7 +130,7 @@ $datosTarea = [
 
 if($insertarTarea){
 
-    echo "AGENDADO!!!";
+    echo "AGENDADO!!! \n";
 
     echo "la tarea se inserto correctamente";
 }else{
