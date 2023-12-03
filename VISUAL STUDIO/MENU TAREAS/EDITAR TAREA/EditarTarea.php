@@ -21,6 +21,7 @@ use MongoDB\Client;
 use MongoDB\Operation\FindOne;
 use MongoDB\Operation\InsertOne;
 require '/xampp/htdocs/BREAKBDY/VISUAL STUDIO/INICIO DE SESION/sesion.php';
+<<<<<<< Updated upstream
 
 // traemos un archivo con los datos para el ingreso a la base de datos
 
@@ -39,6 +40,9 @@ require '/xampp/htdocs/BREAKBDY/VISUAL STUDIO/INICIO DE SESION/sesion.php';
 
         $clients = new MongoDB\Client($cadenConexion);
         $breakbdy = $clients->selectDatabase("BREAKBDY");
+=======
+require '/xampp/htdocs/BreakBdy/CONFIGURACIONES/bd.php';
+>>>>>>> Stashed changes
 
 // definimos la coleccion de las tareas
 
@@ -66,12 +70,13 @@ foreach ($resultadoConsultaTarea as $documento) {
 ?>
 
     <div id="menu-barra">
-    <a href="Usuario.php" ><img class="imagen4" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-logo.jpeg?raw=true" alt=":v"></a>
-    <a href="/VISUAL STUDIO/MENU PRINCIPAL/Menu.html"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Calendario.png?raw=true" alt=":v"></a>
-    <a href="#Tarea.html"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-Tareas.png?raw=true" alt=":v"></a>
-    <a href="#Descansos.html"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-descansos.png?raw=true" alt=":v"></a>
-    <a href="/VISUAL STUDIO/MENU EVENTO/Evento.html"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-Eventos.png?raw=true" alt=":v"></a>
-    <a href="../Compromiso.html"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/imagen-compromisos.png?raw=true" alt=":v"></a>
+    <a href="/VISUAL STUDIO/MENU USUARIO/Usuario.php" ><img class="imagen4" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-logo.jpeg?raw=true" alt=":v"></a>
+    <a href="/VISUAL STUDIO/MENU PRINCIPAL/Menu.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Calendario.png?raw=true" alt=":v"></a>
+    <a href="../TAREAS.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-Tareas.png?raw=true" alt=":v"></a>
+    <a href="/VISUAL STUDIO/MENU DESCANSOS/Descansos.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-descansos.png?raw=true" alt=":v"></a>
+    <a href="/VISUAL STUDIO/MENU EVENTO/Eventos.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-Eventos.png?raw=true" alt=":v"></a>
+    <a href="/VISUAL STUDIO/MENU COMPROMISOS/Compromiso.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/imagen-compromisos.png?raw=true" alt=":v"></a>
+
     <a href="Expandir"><img class="imagen3" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/menu.png?raw=true" alt=""></a>
   </div>
 
@@ -84,9 +89,8 @@ foreach ($resultadoConsultaTarea as $documento) {
         </section>
         <section>
             <label for="Prioridad">Prioridad:</label>
-            <select name="prioridad" id="Prioridad" value=<?php echo $prioridadTarea;?>>
-                <option value="0">Baja</option>
-                <option value="1">Alta</option>
+            <select name="prioridad" id="Prioridad" value=<?php echo $prioridadTarea;?> default="<?echo $prioridadTarea?>">
+                <option value="Baja">Baja</option>
             </select>
         </section>
         <section>
@@ -109,11 +113,7 @@ foreach ($resultadoConsultaTarea as $documento) {
         </section>
     </form>
     </div>
-
-</body>
-</html>
-
-<?php
+    <?php
 if(isset($_POST['editar'])){
     $idp = $_POST['idp'];
     $nuevonombreTarea = $_POST['nombre'];
@@ -153,3 +153,5 @@ if ($busqueda->getModifiedCount() > 0) {
 }
 }
 ?>
+</body>
+</html>

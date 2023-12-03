@@ -14,7 +14,7 @@
 <body >
 <form action="sesion.php" method="post">
     <h1 class="titulos">Bienvenido a BreakBdy</h1>
-    <img id="logo" src="https://github.com/Lenn0705/BreakBdy/blob/rama-de-samuel/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-logo.jpeg?raw=true" alt="">
+    <img id="logo" src="/VISUAL STUDIO/IMAGENES BREAKBDY/Imagen-logo.jpeg" alt="">
     <input name="NombUsuario" class="entradas" type="text" placeholder="Escriba el usuario">
     <label class="titulos" for="titulos">Ingrese Su usuario BreakBdy</label>
 
