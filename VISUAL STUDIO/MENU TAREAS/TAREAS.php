@@ -68,20 +68,20 @@ $resultadoConsultaTarea = $consultaTarea ->toArray();
     <section id="Tarea" name="Tarea">
     
       <?php foreach($resultadoConsultaTarea as $documento){?>
-          <a href="../MENU TAREAS/EDITAR TAREA/EditarTarea.php=?id=<?php echo $documento['id']?>">
+          <a href="../MENU TAREAS/EDITAR TAREA/EditarTarea.php?id=<?php echo $documento['_id']?>">
             <?php echo $documento['nombreTarea']. "<br>"; ?>
-            <p><?php echo $documento['descripcionTarea']. "<br>";?></p>
-            <p><?php echo $documento['hora']['horaInicial'] . " - " . $documento['hora']['horaFinal']. "<br>"; ?></p>
-            <p><?php echo $documento['fechaTarea'];?></p></a>
+            <p>Descripcion:<?php echo $documento['descripcionTarea']. "<br>";?></p>
+            <p>Tiempo:<?php echo $documento['hora']['horaInicial'] . " - " . $documento['hora']['horaFinal']. "<br>"; ?></p>
+            <p>Fecha:<?php echo $documento['fechaTarea'];?></p></a>
         <?php }?>
     </section>
 
     <div id="barra-control">
      <section id="control">
-        <button onclick="location.href='/xampp/BreakBdy/VISUAL STUDIO/MENU TAREAS/CREAR TAREA/CrearTarea.php'">Crear Tarea
+        <button onclick="location.href='/BreakBdy/VISUAL STUDIO/MENU TAREAS/CREAR TAREA/CrearTarea.php'">Crear Tarea
       </button>
         <button
-         onclick="location.href='/VISUAL%20STUDIO/MENU%20TAREAS/ELIMINAR%20TAREA/EliminarTarea.html'">Eliminar Tarea
+         onclick="location.href='/BreakBdy/VISUAL STUDIO/MENU TAREAS/ELIMINAR TAREA/EliminarTarea.php'">Eliminar Tarea
         </button>
      </section>
     </div>

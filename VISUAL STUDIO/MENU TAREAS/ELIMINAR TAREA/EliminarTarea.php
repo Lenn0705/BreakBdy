@@ -22,32 +22,73 @@
     <a href="../Compromiso.html"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/imagen-compromisos.png?raw=true" alt=":v"></a>
     <a href="Expandir"><img class="imagen3" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/menu.png?raw=true" alt=""></a>
   </div>
+<?php
+session_start();
 
+use MongoDB\BSON\ObjectId;
+use MongoDB\Model\BSONDocument;
+use MongoDB\Client;
+use MongoDB\Operation\FindOne;
+use MongoDB\Operation\InsertOne;
+// traemos los datos del inicio de sesion
+require '/xampp/htdocs/BREAKBDY/VISUAL STUDIO/INICIO DE SESION/sesion.php';
+// en la carpeta de config traemos la conexion a la base de datos
+require '/xampp/htdocs/BreakBdy/CONFIGURACIONES/bd.php';
+// definimos la coleccion de las tareas
+
+$tareas = $breakbdy ->selectCollection('tareas');
+// hacemos la respectiva consulta de las tareas que tiene el usuario que inicio sesion
+$especificacion = ['asignado' => $_SESSION['usuarioBreak']];
+$consultaTarea = $tareas ->find($especificacion);
+$resultadoConsultaTarea = $consultaTarea ->toArray();
+?>
   <div id="menu-barra-der" class="col-md-1">
+    <form action="EliminarTarea.php" method="post">
     <section id="Tarea" name="Tarea">
-        <a href="../Tareas.html"><input type="checkbox" name="" id=""> Tarea 1 <p>Descripcion: Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor ipsa molestias autem, dolore dolores soluta neque, quisquam nihil laudantium accusamus quaerat repudiandae quo est!</p> <p>10/12/2023</p> <p>12:00</p></a>
-        <a href="../Tareas.html"><input type="checkbox" name="" id=""> Tarea 2 <p>Descripcion: Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor ipsa molestias autem, dolore dolores soluta neque, quisquam nihil laudantium accusamus quaerat repudiandae quo est!</p> <p>10/12/2023</p> <p>16:00</p></a>
-        <a href="../Tareas.html"><input type="checkbox" name="" id=""> Tarea 3 <p>Descripcion: Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor ipsa molestias autem, dolore dolores soluta neque, quisquam nihil laudantium accusamus quaerat repudiandae quo est!</p> <p>10/12/2023</p> <p>12:00</p></a>
-        <a href="../Tareas.html"><input type="checkbox" name="" id=""> Tarea 4 <p>Descripcion: Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor ipsa molestias autem, dolore dolores soluta neque, quisquam nihil laudantium accusamus quaerat repudiandae quo est!</p> <p>10/12/2023</p> <p>20:00</p></a>
-        <a href="../Tareas.html"><input type="checkbox" name="" id=""> Tarea 5 <p>Descripcion: Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolor ipsa molestias autem, dolore dolores soluta neque, quisquam nihil laudantium accusamus quaerat repudiandae quo est!</p> <p>10/12/2023</p> <p>10:00</p></a>
+      <?php foreach($resultadoConsultaTarea as $documento){?>
+        <a href="../Tareas.html"><input type="checkbox" name="EliminarTarea[]" value="<?php echo $documento['_id']; ?>"> <?php echo $documento['nombreTarea']. "<br>";?>
+        <p>Descripcion: <?php echo $documento['descripcionTarea'] . "<br>";?></p>
+        <p>Tiempo: <?php echo $documento['hora']['horaInicial']. " - " . $documento['hora']['horaInicial']."<br>"?></p>
+        <p>Fecha: <?php echo $documento['fechaTarea'];?></p></a>
+        <?php }?>
     </section>
-
     <div id="barra-control" class="col-md-1">
      <section id="control">
-        <button id="botonRedireccionar">Crear Tarea</button>
         <script src="/VISUAL STUDIO/MENU TAREAS/Tareas.js"></script>
-
      </section>
      <section class="botones-control">
-      <a class="boton" href="../Tareas.html">←</a>
-          <button class="boton"> x </button>
+      <a class="boton" href="../Tareas.php">←</a>
+          <input type="submit" class="boton2" value="x" name="eliminar">
       </section>
+      </form>
     </div>
-
-  
   </div>
 
-
+  <?php 
+  // cuando se envie el comando de eliminar
+  if(isset($_POST['eliminar'])){
+    try{
+      include '/xampp/htdocs/BreakBdy/CONFIGURACIONES/bd.php';
+      $tareas = $breakbdy ->selectCollection('tareas');
+      $busquedaEliminar = [
+        'asignado' => $_SESSION['usuarioBreak']
+      ];
+    // se verifica si se presiono un checkbox o no
+    if(isset($_POST['EliminarTarea']) && is_array($_POST['EliminarTarea'])){
+      foreach($_POST['EliminarTarea'] as $tareasEliminadas){
+        $elimiarTarea= $tareas ->deleteOne($busquedaEliminar);
+      }
+      if($elimiarTarea->getDeletedCount() > 0){
+        echo "SE HAN ELIMINADO " . count($tareasEliminadas) . " TAREAS";
+      }
+    }else{
+      echo "NO SE HA ELIMINADO NINGUNA TAREA \n.";
+    }
+  }catch(\Throwable $e){
+      echo "Error:" . $e->getMessage();
+    }
+  }
+  ?>
  
 
 </body>

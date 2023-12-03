@@ -13,6 +13,7 @@
 
 <?php
 session_start();
+$id = $_GET['id'];
 
 use MongoDB\BSON\ObjectId;
 use MongoDB\Model\BSONDocument;
@@ -20,10 +21,24 @@ use MongoDB\Client;
 use MongoDB\Operation\FindOne;
 use MongoDB\Operation\InsertOne;
 require '/xampp/htdocs/BREAKBDY/VISUAL STUDIO/INICIO DE SESION/sesion.php';
-require '/xampp/htdocs/BREAKBDY/VISUAL STUDIO/MENU TAREAS/TAREAS.php';
-include '../TAREAS.php';
 
-$id = $_GET['id'];
+// traemos un archivo con los datos para el ingreso a la base de datos
+
+        //creamos la cadena de conexion para la base de datos
+
+        $cadenConexion = "mongodb://" .
+        $db_components['usuario'] . ":" . 
+        $db_components['contraseña'] . "@" .
+        $db_components['servidor'] . ":" .
+        $db_components['puerto'] . "/" .
+        $db_components['baseDatos'];
+
+        //seleccion de la base de datos y la coleccion donde buscara la informacion
+
+        require_once '/xampp/htdocs/BreakBdy/vendor/autoload.php';
+
+        $clients = new MongoDB\Client($cadenConexion);
+        $breakbdy = $clients->selectDatabase("BREAKBDY");
 
 // definimos la coleccion de las tareas
 
@@ -31,16 +46,27 @@ $tareas = $breakbdy ->selectCollection('tareas');
 
 // consultamos los datos existentes
 
-$especificacion = ['id'=> $id,'asignado' => $_SESSION['usuarioBreak']];
+$especificacion = ['_id'=> $id,'asignado' => $_SESSION['usuarioBreak']];
+
 $consultaTarea = $tareas ->find($especificacion);
+
 $resultadoConsultaTarea = $consultaTarea ->toArray();
 
+foreach ($resultadoConsultaTarea as $documento) {
+    $idp = $documento['_id'];
+    $nombreTarea = $documento['nombreTarea'];
+    $descripcionTarea = $documento['descripcionTarea'];
+    $prioridadTarea = $documento['prioridadTarea'];
+    $fechaTarea = $documento['fechaTarea'];
+    $horaInicial = $documento['hora']['horaInicial'];
+    $horaFinal = $documento['hora']['horaFinal'];
+}
 
 
 ?>
 
     <div id="menu-barra">
-    <a href="Menu.html" ><img class="imagen4" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-logo.jpeg?raw=true" alt=":v"></a>
+    <a href="Usuario.php" ><img class="imagen4" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-logo.jpeg?raw=true" alt=":v"></a>
     <a href="/VISUAL STUDIO/MENU PRINCIPAL/Menu.html"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Calendario.png?raw=true" alt=":v"></a>
     <a href="#Tarea.html"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-Tareas.png?raw=true" alt=":v"></a>
     <a href="#Descansos.html"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-descansos.png?raw=true" alt=":v"></a>
@@ -50,35 +76,35 @@ $resultadoConsultaTarea = $consultaTarea ->toArray();
   </div>
 
     <div class="col-md-1" >
-        <form action="EditarTarea.php" method="post" id="Formulario">
+        <form action="EditarTarea.php?id=<?php echo $idp?>" method="post" id="Formulario">
         <section class="">
-            
+            <input type="hidden" name="idp" value=<?php echo $idp?>>
         <label for="Nombre">Tarea:</label>
-        <input type="text" name="nombre" id="nombre" value=<?php echo $resultadoConsultaTarea['nombreTarea'];?>>
+        <input type="text"  name="nombre" id="nombre" value=<?php echo $nombreTarea;?>>
         </section>
         <section>
             <label for="Prioridad">Prioridad:</label>
-            <select name="Prioridad" id="Prioridad" value=<?php echo $resultadoConsultaTarea['prioridadTarea'];?>>
+            <select name="prioridad" id="Prioridad" value=<?php echo $prioridadTarea;?>>
                 <option value="0">Baja</option>
                 <option value="1">Alta</option>
             </select>
         </section>
         <section>
             <label for="Descripcion">Descripcion:</label>
-            <input type="text" name="descripcion" value=<?php echo "<p>".$resultadoConsultaTarea['descripcionTarea'] . "</p>";?>>
+            <input type="text" name="descripcion" value=<?php echo $descripcionTarea;?>>
         </section>
         <section>
             <label for="HoraInicial">Hora Inicial:</label>
-            <input type="time" name="horaInicial" value=<?php echo "<p>".$resultadoConsultaTarea['horaInicial'] . "</p>";?>>
+            <input type="time" name="horaInicial" value=<?php echo $horaInicial;?>>
             <label for="HoraFinal">Hora Final:</label>
-            <input type="time" name="horaFinal" value=<?php echo "<p>".$resultadoConsultaTarea['horaFinal'] . "</p>";?>>
+            <input type="time" name="horaFinal" value=<?php echo $horaFinal;?>>
         </section>
         <section>
 <label for="Fecha">Fecha:</label>
-<input type="date" name="Fecha" id="Fecha" value=<?php echo $resultadoConsultaTarea['fechaTarea'];?>>
+<input type="date" name="Fecha" id="Fecha" value=<?php echo $fechaTarea;?>>
         </section>
         <section class="botones-control">
-        <a class="boton" href="../Tareas.html">←</a>
+        <a class="boton" href="../Tareas.php">←</a>
         <input type="submit" value="Editar"  class="boton2" name="editar">
         </section>
     </form>
@@ -89,36 +115,37 @@ $resultadoConsultaTarea = $consultaTarea ->toArray();
 
 <?php
 if(isset($_POST['editar'])){
-$nuevonombreTarea = $_POST['nombre'];
-$nuevodescripcionTarea = $_POST['descripcion'];
-$nuevoprioridadTarea = $_POST['Prioridad'];
-$nuevohoraFinal = $_POST['HoraFinal'];
-$nuevohoraInicial = $_POST['HoraInicial'];
-$nuevofechaTarea = $_POST['Fecha'];
+    $idp = $_POST['idp'];
+    $nuevonombreTarea = $_POST['nombre'];
+    $nuevodescripcionTarea = $_POST['descripcion'];
+    $nuevoprioridadTarea = $_POST['prioridad'];
+    $nuevohoraFinal = $_POST['horaFinal'];
+    $nuevohoraInicial = $_POST['horaInicial'];
+    $nuevofechaTarea = $_POST['Fecha'];
 
 try{
 
     $datosnuevos = [
-        'asignado' =>$_SESSION['usuarioBreak'],
-        'nombreTarea' => $nombreTarea,
-        'descripcionTarea' => $descripcionTarea,
-        'prioridadTarea' => $prioridadTarea,
-        'fechaTarea' => $fechaTarea,
-    
+        '$set'=>[
+        'nombreTarea' => $nuevonombreTarea,
+        'descripcionTarea' => $nuevodescripcionTarea,
+        'prioridadTarea' => $nuevoprioridadTarea,
+        'fechaTarea' => $nuevofechaTarea,
         'hora' => [
-            'horaInicial' => $horaInicial,
-            'horaFinal'=> $horaFinal
-        ],
-        '_id' => uniqid()
+            'horaInicial' => $nuevohoraInicial,
+            'horaFinal'=> $nuevohoraFinal
+        ]]
         ];
 
-$crit = ['asignado' => $_SESSION['usuarioBreak'], 'nombreTarea' =>$resultadoConsultaTarea['nombreTarea']];
-        $busqueda = $coleccion ->replaceOne($criterios_busqueda, $datosnuevos);
+$crit = ['asignado' => $_SESSION['usuarioBreak'], 'nombreTarea' =>$nombreTarea , '_id' =>$idp];
+        $busqueda = $tareas ->updateOne($crit, $datosnuevos);
 
 if ($busqueda->getModifiedCount() > 0) {
     echo "LOS DATOS SE HAN AGENDADO SATISFACTORIAMENTE .\n";
-    header('Location:../INICIO DE SESION/iniciarSesion.php');
-} else {
+    header('Location:../TAREAS.php');
+} elseif ($datosnuevos = $documento){
+    echo "LOS DATOS SON LOS MISMOS .\n";
+}else {
     echo "LOS DATOS NO SE HAN REEMPLAZADO SATISFACTORIAMENTE .\n";
 }
 }catch(\Throwable $e){
