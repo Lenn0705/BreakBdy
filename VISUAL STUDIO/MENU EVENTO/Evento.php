@@ -7,27 +7,23 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="Tareas.css">
+    <link rel="stylesheet" href="Evento.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Tareas</title>
+    <title>Lista de Eventos</title>
 </head>
 <body>
-    <script src="Tareas.js"></script>
-    <div id="menu-barra" class="col-md-1">
-    <a href="../MENU USUARIO/Usuario.php"><img class="imagen4" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-logo.jpeg?raw=true" alt=":v"></a>
+    <div id="menu-barra">
+    <a href="../MENU USUARIO/Usuario.php" ><img class="imagen4" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-logo.jpeg?raw=true" alt=":v"></a>
     <a href="../MENU PRINCIPAL/Menu.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Calendario.png?raw=true" alt=":v"></a>
     <a href="../MENU TAREAS/Tareas.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-Tareas.png?raw=true" alt=":v"></a>
-    <a href="../MENU DESCANSOS/Descansos.html"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-descansos.png?raw=true" alt=":v"></a>
+    <a href="../MENU DESCANSOS/Descansos.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-descansos.png?raw=true" alt=":v"></a>
     <a href="../MENU EVENTO/Evento.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-Eventos.png?raw=true" alt=":v"></a>
     <a href="../MENU COMPROMISOS/Compromiso.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/imagen-compromisos.png?raw=true" alt=":v"></a>
     <a href="Expandir"><img class="imagen3" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/menu.png?raw=true" alt=""></a>
   </div>
-<!-- abrimos etiqueta php para generar una consulta y hacer un ciclo -->
-
-<?php 
+<?php
 session_start();
-
 use MongoDB\BSON\ObjectId;
 use MongoDB\Model\BSONDocument;
 use MongoDB\Client;
@@ -35,42 +31,38 @@ use MongoDB\Operation\FindOne;
 use MongoDB\Operation\InsertOne;
 require '/xampp/htdocs/BREAKBDY/VISUAL STUDIO/INICIO DE SESION/sesion.php';
 require '/xampp/htdocs/BreakBdy/CONFIGURACIONES/bd.php';
-
-// definimos la coleccion de las tareas
-
-$tareas = $breakbdy ->selectCollection('tareas');
-
+$razon = 'Eventos';
+$coleccion = $breakbdy ->selectCollection($razon);
 $especificacion = ['asignado' => $_SESSION['usuarioBreak']];
-$consultaTarea = $tareas ->find($especificacion);
-$resultadoConsultaTarea = $consultaTarea ->toArray();
-
+$consultaColeccion = $coleccion ->find($especificacion);
+$resultadoConsultaColeccion = $consultaColeccion ->toArray();
 ?>
 
-
   <div id="menu-barra-der">
-    <section id="Tarea" name="Tarea">
-    
-      <?php foreach($resultadoConsultaTarea as $documento){?>
-          <a href="../MENU TAREAS/EDITAR TAREA/EditarTarea.php?id=<?php echo $documento['_id']?>">
-            <?php echo $documento['nombreTarea']. "<br>"; ?>
-            <p>Descripcion:<?php echo $documento['descripcionTarea']. "<br>";?></p>
-            <p>Tiempo:<?php echo $documento['hora']['horaInicial'] . " - " . $documento['hora']['horaFinal']. "<br>"; ?></p>
-            <p>Fecha:<?php echo $documento['fechaTarea'];?></p></a>
-        <?php }?>
+    <section id="Evento" name="Evento">
+      <?php foreach($resultadoConsultaColeccion as $documento){?>
+        <a href="../MENU EVENTO/FORMULARIO EDITAR/Editar<?php echo $razon?>.php?id=<?php echo $documento['_id']?>">
+        <?php echo $documento['nombre'.$razon] . "<br>";?>
+        <p>Descripcion: <?php echo $documento['descripcion'.$razon] . "<br>";?></p>
+        <p>Hora:<?php echo $documento['hora']. "<br>";?></p>
+        <p>Fecha:<?php echo $documento['fecha'.$razon]?></p></a>
+       <?php }?>
     </section>
 
     <div id="barra-control">
      <section id="control">
-        <button onclick="location.href='/BreakBdy/VISUAL STUDIO/MENU TAREAS/CREAR TAREA/CrearTarea.php'">Crear Tarea
+        <button onclick="location.href='/Breakbdy/VISUAL STUDIO/MENU EVENTO/FORMULARIO CREAR/CrearEventos.php'" id="botonRedireccionar">Crear<?php echo " ".$razon?>
       </button>
-        <button
-         onclick="location.href='/BreakBdy/VISUAL STUDIO/MENU TAREAS/ELIMINAR TAREA/EliminarTarea.php'">Eliminar Tarea
-        </button>
+        <button onclick="location.href='/Breakbdy/VISUAL STUDIO/MENU EVENTO/FORMULARIO ELIMINAR EVENTO/EliminarEventos.php'">Eliminar<?php echo " ".$razon?>
+      </button>
+        <script src="/VISUAL STUDIO/MENU EVENTO/Evento.js"></script>
      </section>
     </div>
   
   </div>
-  
+
+
+ 
 
 </body>
 </html>

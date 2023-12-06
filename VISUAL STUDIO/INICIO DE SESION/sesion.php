@@ -13,21 +13,7 @@ if(isset($_POST['iniciar_sesion'])){
     $usuarioBreak = $_POST['NombUsuario'];
     $contraseñaBreak = $_POST['contraseña'];
 
-        //creamos la cadena de conexion para la base de datos
-
-        $cadenConexion = "mongodb://" .
-        $db_components['usuario'] . ":" . 
-        $db_components['contraseña'] . "@" .
-        $db_components['servidor'] . ":" .
-        $db_components['puerto'] . "/" .
-        $db_components['baseDatos'];
-
-        //seleccion de la base de datos y la coleccion donde buscara la informacion
-
-        require_once '/xampp/htdocs/BreakBdy/vendor/autoload.php';
-
-        $clients = new MongoDB\Client($cadenConexion);
-        $breakbdy = $clients->selectDatabase("BREAKBDY");
+require '/xampp/htdocs/BreakBdy/CONFIGURACIONES/bd.php';
         $datos = $breakbdy->selectCollection("usuario");
         
         $usser = $datos ->FindOne(['usuarioBreak' => $usuarioBreak]);
@@ -43,6 +29,7 @@ if(isset($_POST['iniciar_sesion'])){
             session_start();
             //guarda el dato del usuario para mas adelante
             $_SESSION['usuarioBreak'] = $usuarioBreak;
+            $_SESSION['contraseñaBreak'] = $contraseñaBreak;
             header('Location:../MENU PRINCIPAL/Menu.php');
             exit;
             }else{
