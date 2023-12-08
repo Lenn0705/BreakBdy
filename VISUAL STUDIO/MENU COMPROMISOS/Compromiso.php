@@ -37,7 +37,9 @@ require '/xampp/htdocs/BreakBdy/CONFIGURACIONES/bd.php';
 $razon = 'Compromisos';
 $coleccion = $breakbdy ->selectCollection($razon);
 $especificacion = ['asignado' => $_SESSION['usuarioBreak']];
+
 $consultaColeccion = $coleccion ->find($especificacion , ['sort' =>(['fechaCompromisos' => 1 , 'hora' =>1])]);
+
 $resultadoConsultaColeccion = $consultaColeccion ->toArray();
 ?>
 
@@ -47,14 +49,18 @@ $resultadoConsultaColeccion = $consultaColeccion ->toArray();
         <a href="../MENU COMPROMISOS/FORMULARIO EDITAR/Editar<?php echo $razon?>.php?id=<?php echo $documento['_id'] ?>">
         <?php echo $documento['nombre'.$razon] . "<br>";?>
         <p>Descripcion: <?php echo $documento['descripcion'.$razon] . "<br>";?></p>
+
         <p>Hora:<?php echo $documento['hora']. "<br>";?></p>
+
         <p>Fecha:<?php echo $documento['fecha'.$razon]?></p></a>
         <?php }?>
     </section>
 
     <div id="barra-control">
      <section id="control">
+
         <button onclick="location.href='/Breakbdy/VISUAL STUDIO/MENU COMPROMISOS/FORMULARIO CREAR/CrearCompromisos.php'">Crear Compromiso
+
       </button>
         <button onclick="location.href='/Breakbdy/VISUAL STUDIO/MENU COMPROMISOS/FORMULARIO ELIMINAR/EliminarCompromisos.php'" id="botonRedireccionarEliminar">Eliminar Compromiso
       </button>

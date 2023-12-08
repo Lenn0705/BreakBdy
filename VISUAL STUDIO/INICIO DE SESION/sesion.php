@@ -30,7 +30,10 @@ require '/xampp/htdocs/BreakBdy/CONFIGURACIONES/bd.php';
             //guarda el dato del usuario para mas adelante
             $_SESSION['usuarioBreak'] = $usuarioBreak;
             $_SESSION['contraseñaBreak'] = $contraseñaBreak;
+
             header('Location:../SLIDE INICIO DE SESION/Slide.php');
+
+
             exit;
             }else{
                 echo "<h3 class='titulos'>Esta contraseña no es valida</h3>";

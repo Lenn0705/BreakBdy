@@ -10,9 +10,11 @@
 </head>
 <body>
     <div id="menu-barra" class="col-md-1">
+
         <a href="../MENU USUARIO/Usuario.php"><img class="imagen4" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-logo.jpeg?raw=true" alt=":v"></a>
         <a href="/VISUAL STUDIO/MENU EVENTO/Evento.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Calendario.png?raw=true" alt=":v"></a>
         <a href="../TAREAS.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-Tareas.png?raw=true" alt=":v"></a>
+
         <a href="/VISUAL STUDIO/MENU DESCANSOS/Descansos.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-descansos.png?raw=true" alt=":v"></a>
         <a href="/VISUAL STUDIO/MENU EVENTO/Eventos.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-Eventos.png?raw=true" alt=":v"></a>
         <a href="/VISUAL STUDIO/MENU COMPROMISOS/Compromiso.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/imagen-compromisos.png?raw=true" alt=":v"></a>
@@ -87,9 +89,11 @@ try{
 // traemos un archivo con los datos para el ingreso a la base de datos
 
 
+
 require '/xampp/htdocs/BreakBdy/CONFIGURACIONES/bd.php';
 
 // definimos las colecciones
+
 
 $tareas = $breakbdy ->selectCollection('tareas');
 $eventos = $breakbdy ->selectCollection('Eventos');
@@ -305,6 +309,7 @@ if($insertarDescanso){
                 echo "UPS, HA HABIDO UN PROBLEMA AL AGENDAR";
             }
 }
+
 
 }else{
     echo "ups, hubo un problema agendando";

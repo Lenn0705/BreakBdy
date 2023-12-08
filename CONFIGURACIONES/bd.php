@@ -18,5 +18,4 @@ require_once '/xampp/htdocs/BreakBdy/CONFIGURACIONES/config.php';
         $clients = new MongoDB\Client($cadenConexion);
         $breakbdy = $clients->selectDatabase("BREAKBDY");
 
-        // require '/xampp/htdocs/BreakBdy/CONFIGURACIONES/bd.php';
         ?>

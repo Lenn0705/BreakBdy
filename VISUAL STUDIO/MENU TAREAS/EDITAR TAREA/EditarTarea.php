@@ -21,8 +21,8 @@ use MongoDB\Client;
 use MongoDB\Operation\FindOne;
 use MongoDB\Operation\InsertOne;
 require '/xampp/htdocs/BREAKBDY/VISUAL STUDIO/INICIO DE SESION/sesion.php';
-require '/xampp/htdocs/BreakBdy/CONFIGURACIONES/bd.php';
 
+require '/xampp/htdocs/BreakBdy/CONFIGURACIONES/bd.php';
 // definimos la coleccion de las tareas
 
 $tareas = $breakbdy ->selectCollection('tareas');

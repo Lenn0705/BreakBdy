@@ -53,8 +53,6 @@ $resultadoConsultaTarea = $consultaTarea ->toArray();
         <p>Fecha: <?php echo $documento['fechaTarea'];?></p></a>
         <?php }?>
     </section>
-
-
     <div id="barra-control" class="col-md-1">
      <section id="control">
         <script src="/VISUAL STUDIO/MENU TAREAS/Tareas.js"></script>
@@ -64,7 +62,9 @@ $resultadoConsultaTarea = $consultaTarea ->toArray();
           <input type="submit" class="boton2" value="x" name="eliminar">
       </section>
       </form>
+
       </div>
+
     </div>
   </div>
 
@@ -81,10 +81,12 @@ $resultadoConsultaTarea = $consultaTarea ->toArray();
         'asignado' => $_SESSION['usuarioBreak'],
         'tareaAsignada' => $tareasEliminadas['nombreTarea']
       ];
+
     // se verifica si se presiono un checkbox o no
     if(isset($_POST['EliminarTarea']) && is_array($_POST['EliminarTarea'])){
       foreach($_POST['EliminarTarea'] as $tareasEliminadas){
         $elimiarTarea= $tareas ->deleteOne($busquedaEliminar);
+
 foreach($tareasEliminadas as $descansosEliminados){
 
   $busquedaEliminarDescansos = [
@@ -96,6 +98,7 @@ foreach($tareasEliminadas as $descansosEliminados){
   $elimiarDescanso = $descansos ->deleteOne($busquedaEliminar);
 
 }
+
       }
       if($elimiarTarea->getDeletedCount() > 0){
         echo "SE HAN ELIMINADO";

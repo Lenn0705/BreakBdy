@@ -98,11 +98,11 @@
   <div>
     <?php
 
+
     if(isset($_POST['cerrar_sesion'])){
         session_abort();
         header('location:../INICIO DE SESION/iniciarSesion.php');
     }
-
     if(isset($_POST['cambiar_contraseña'])){
         // si se quiere cambiar la contraseña, se generara una seccion para cambiarla
 echo "<section><form action='Usuario.php' method='post'><label for='Contraseña'>Contraseña:</label>";

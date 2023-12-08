@@ -20,7 +20,9 @@
       </div>
 
     <div class="col-md-1" >
+
         <form action="CrearCompromisos.php" method="post" id="Formulario">
+
         <section class="">
             
         <label for="Nombre">Nombre:</label>
@@ -49,7 +51,9 @@
         <section class="botones-control">
             <a class="boton" href="../Compromiso.php">←</a>
         <script src="/VISUAL STUDIO/MENU COMPROMISOS/Compromiso.js"></script>
+
             <input type="submit" name="crear" class="boton" value="+">
+
         </section>
     </form>
     </div>

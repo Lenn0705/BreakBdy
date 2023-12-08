@@ -25,7 +25,9 @@ require '/xampp/htdocs/BreakBdy/CONFIGURACIONES/bd.php';
 
 // definimos la coleccion de las tareas
 
+
 $compromiso = $breakbdy ->selectCollection('Compromisos');
+
 
 // consultamos los datos existentes
 
@@ -34,7 +36,6 @@ $especificacion = ['_id'=> $id,'asignado' => $_SESSION['usuarioBreak']];
 $consultaCompromiso = $compromiso ->find($especificacion);
 
 $resultadoConsultaCompromiso = $consultaCompromiso ->toArray();
-
 foreach ($resultadoConsultaCompromiso as $documento) {
     $idp = $documento['_id'];
     $nombreCompromiso = $documento['nombreCompromisos'];
@@ -47,6 +48,7 @@ foreach ($resultadoConsultaCompromiso as $documento) {
 ?>
 
     <div id="menu-barra">
+
     <a href="/Breakbdy/VISUAL STUDIO/MENU USUARIO/Usuario.php" ><img class="imagen4" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-logo.jpeg?raw=true" alt=":v"></a>
     <a href="/Breakbdy/VISUAL STUDIO/MENU PRINCIPAL/Menu.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Calendario.png?raw=true" alt=":v"></a>
     <a href="/Breakbdy/VISUAL STUDIO/MENU TAREAS/TAREAS.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-Tareas.png?raw=true" alt=":v"></a>
