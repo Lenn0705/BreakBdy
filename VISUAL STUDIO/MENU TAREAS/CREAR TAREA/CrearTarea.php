@@ -10,12 +10,12 @@
 </head>
 <body>
     <div id="menu-barra" class="col-md-1">
-        <a href="../MENU USUARIO/Usuario.html"><img class="imagen4" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-logo.jpeg?raw=true" alt=":v"></a>
-        <a href="/VISUAL STUDIO/MENU EVENTO/Evento.html"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Calendario.png?raw=true" alt=":v"></a>
-        <a href="#Tarea.html"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-Tareas.png?raw=true" alt=":v"></a>
-        <a href="#Descansos.html"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-descansos.png?raw=true" alt=":v"></a>
-        <a href="/VISUAL STUDIO/MENU EVENTO/Evento.html"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-Eventos.png?raw=true" alt=":v"></a>
-        <a href="../Compromiso.html"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/imagen-compromisos.png?raw=true" alt=":v"></a>
+        <a href="../MENU USUARIO/Usuario.php"><img class="imagen4" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-logo.jpeg?raw=true" alt=":v"></a>
+        <a href="/VISUAL STUDIO/MENU EVENTO/Evento.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Calendario.png?raw=true" alt=":v"></a>
+        <a href="../TAREAS.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-Tareas.png?raw=true" alt=":v"></a>
+        <a href="/VISUAL STUDIO/MENU DESCANSOS/Descansos.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-descansos.png?raw=true" alt=":v"></a>
+        <a href="/VISUAL STUDIO/MENU EVENTO/Eventos.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-Eventos.png?raw=true" alt=":v"></a>
+        <a href="/VISUAL STUDIO/MENU COMPROMISOS/Compromiso.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/imagen-compromisos.png?raw=true" alt=":v"></a>
         <a href="Expandir"><img class="imagen3" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/menu.png?raw=true" alt=""></a>
       </div>
 
@@ -34,13 +34,14 @@
         </section>
         <section>
             <label for="HoraInicial">Hora Inicial:</label>
-            <input type="time" name="HoraInicial" id="Hora">
+            <input type="time" step="60" name="HoraInicial" id="Hora">
             <label for="HoraFinal">Hora Final:</label>
-            <input type="time" name="HoraFinal" id="Hora">
+            <input type="time" step="60" name="HoraFinal" id="Hora">
         </section>
         <section>
         <label for="Prioridad">Prioridad:</label><select name="Prioridad" id="Prioridad">
             <option value="Baja">Baja</option>
+            <option value="Alta">Media</option>
             <option value="Alta">Alta</option>
         </select>
         </section>
@@ -49,7 +50,8 @@
          <input type="date" name="fecha" id="fecha">
         </section>
         <section class="botones-control">
-            <input type="submit" class="boton" value="+"></input>
+            <input type="submit" class="boton" value="+">
+            </form>
             <a class="boton" href="../Tareas.php">←</a>
         </section>
         </form>
@@ -84,30 +86,53 @@ try{
 
 // traemos un archivo con los datos para el ingreso a la base de datos
 
-require_once '/xampp/htdocs/BREAKBDY/VISUAL STUDIO/INICIO DE SESION/sesion.php';
 
+require '/xampp/htdocs/BreakBdy/CONFIGURACIONES/bd.php';
 
-        //creamos la cadena de conexion para la base de datos
-
-        $cadenConexion = "mongodb://" .
-        $db_components['usuario'] . ":" . 
-        $db_components['contraseña'] . "@" .
-        $db_components['servidor'] . ":" .
-        $db_components['puerto'] . "/" .
-        $db_components['baseDatos'];
-
-        //seleccion de la base de datos y la coleccion donde buscara la informacion
-
-        require_once '/xampp/htdocs/BreakBdy/vendor/autoload.php';
-
-        $clients = new MongoDB\Client($cadenConexion);
-        $breakbdy = $clients->selectDatabase("BREAKBDY");
-
-// definimos la coleccion de las tareas
+// definimos las colecciones
 
 $tareas = $breakbdy ->selectCollection('tareas');
+$eventos = $breakbdy ->selectCollection('Eventos');
+$compromisos = $breakbdy ->selectCollection('Compromisos');
+$descanso = $breakbdy ->selectCollection('descansos');
 
-// convertimos los datos en una coleccion
+$especificacionTareas = [
+    'fechaTarea' => $fechaTarea,
+    'asignado' => $_SESSION['usuarioBreak'],
+    '$or' => [
+        ['hora' =>['horaFinal' => ['$gt' => $horaInicial], 'horaInicial' => ['$lt' => $horaFinal]]],
+        ['hora' =>['horaFinal' => ['$gt' => $horaFinal], 'horaInicial' => ['$lt' => $horaFinal]]],
+        ['hora' =>['horaInicial'=> ['$gte' => $horaInicial], 'horaFinal' => ['$lte' => $horaFinal]]]
+    ]
+];
+
+$especificacionEventos = [
+    'fechaEventos' => $fechaTarea,
+'asignado' => $_SESSION['usuarioBreak'],
+'$or' =>[
+    ['hora' =>['$gt' => $horaInicial], 'hora' => ['$lt' => $horaFinal]]
+]
+];
+
+$especificacionCompromisos = [
+    'fechaCompromisos' => $fechaTarea,
+    'asignado' => $_SESSION['usuarioBreak'],
+    '$or' =>[
+        ['hora' =>['$gt' => $horaInicial], 'hora' => ['$lt' => $horaFinal]]
+    ]
+    ];
+
+$busquedaOcupacionTareas = $tareas -> find($especificacionTareas);
+$busquedaOcupacionEventos = $eventos -> find($especificacionEventos);
+$busquedaOcupacionCompromisos = $compromisos -> find($especificacionCompromisos);
+
+$arraytareas = iterator_to_array($busquedaOcupacionCompromisos);
+$arrayeventos = iterator_to_array($busquedaOcupacionEventos);
+$arraycompromisos = iterator_to_array($busquedaOcupacionTareas);
+
+if(count($arraytareas)>0|| count($arrayeventos)>0 || count($arraycompromisos)>0){
+    echo "LO SIENTO, YA TIENES AGENDADO A ESA HORA";
+}else{
 
 $datosTarea = [
     'asignado' =>$_SESSION['usuarioBreak'],
@@ -115,11 +140,11 @@ $datosTarea = [
     'descripcionTarea' => $descripcionTarea,
     'prioridadTarea' => $prioridadTarea,
     'fechaTarea' => $fechaTarea,
-
     'hora' => [
         'horaInicial' => $horaInicial,
         'horaFinal'=> $horaFinal
     ],
+    'clase'=> "Tarea",
     '_id' => uniqid()
     ];
 
@@ -129,11 +154,161 @@ $datosTarea = [
 
 if($insertarTarea){
 
-    echo "AGENDADO!!!";
+    echo "AGENDADO!!! \n";
 
-    echo "la tarea se inserto correctamente";
+    // agendamiento automatico de descansos
+
+if($prioridadTarea == "Baja"){
+
+    require '/xampp/htdocs/BreakBdy/VISUAL STUDIO/ALMACEN DESCANSOS/almacenDescansos.php';
+
+    $descansoAleatorio = array_rand($descansos);
+
+function HorasAMinutos($hora){
+list($horas , $minutos) = explode(":",$hora);
+return($horas * 60) + $minutos;
+}
+
+function MinutosAHoras($minutos){
+$horas = floor($minutos/60);
+$minutos = $minutos % 60;
+return sprintf("%02d:%02d", $horas, $minutos);
+}
+$minutosInicial_a= HorasAMinutos($horaInicial);
+$minutosFinal_a= HorasAMinutos($horaFinal);
+
+$mitadTiempo = (($minutosFinal_a - $minutosInicial_a)/2) + $minutosInicial_a;
+$hora_mitad = MinutosAHoras($mitadTiempo);
+
+    $datosDescanso = [
+        'asignado' => $_SESSION['usuarioBreak'],
+        'tareaAsignada' => $nombreTarea,
+        'nombreDescanso' => $descansos[$descansoAleatorio]['nombreDescanso'],
+        'descripcionDescanso' => $descansos[$descansoAleatorio]['descripcionDescanso'],
+        'imagenDescanso' => $descansos[$descansoAleatorio]['imagenDescanso'],
+        'duracionDescanso' => $descansos[$descansoAleatorio]['duracionDescanso'],
+        'hora' => $hora_mitad,
+        'clase' => "Descanso",
+        'fechaDescanso' => $fechaTarea,
+        'id' => uniqid()
+    ];
+
+$insertarDescanso = $descanso -> insertOne($datosDescanso);
+
+if($insertarDescanso){
+    echo "<br>";
+    echo "SE LE AGENDO SU RESPECTIVO DESCANSO ;)";
+}else{
+    echo "PERO NO SE PUDO AGENDAR SU DESCANSO :c";
+    echo "<br>";
+}
+
+}elseif($prioridadTarea == "Media"){
+    // codigo para agendar descansos si es prioridad media
+
+    require '/xampp/htdocs/BreakBdy/VISUAL STUDIO/ALMACEN DESCANSOS/almacenDescansos.php';
+
+    function HorasAMinutos($hora){
+        list($horas , $minutos) = explode(":",$hora);
+        return($horas * 60) + $minutos;
+        }
+        
+        function MinutosAHoras($minutos){
+        $horas = floor($minutos/60);
+        $minutos = $minutos % 60;
+        return sprintf("%02d:%02d", $horas, $minutos);
+        }
+
+        $minutosInicial_a= HorasAMinutos($horaInicial);
+        $minutosFinal_a= HorasAMinutos($horaFinal);
+        
+        $tercioTiempo = ($minutosFinal_a - $minutosInicial_a)/3;
+
+            for($i = 1 ; $i < 2 ; $i++){
+
+                $descansoAleatorio = array_rand($descansos);
+                $horaOperada = ($tercioTiempo * $i) + $minutosInicial_a;
+                $hora_tercio = MinutosAHoras($horaOperada);
+        
+            $datosDescanso = [
+                'asignado' => $_SESSION['usuarioBreak'],
+                'tareaAsignada' => $nombreTarea,
+                'nombreDescanso' => $descansos[$descansoAleatorio]['nombreDescanso'],
+                'descripcionDescanso' => $descansos[$descansoAleatorio]['descripcionDescanso'],
+                'imagenDescanso' => $descansos[$descansoAleatorio]['imagenDescanso'],
+                'duracionDescanso' => $descansos[$descansoAleatorio]['duracionDescanso'],
+                'hora' => $hora_tercio,
+                'fechaDescanso' => $fechaTarea,
+                'id' => uniqid()
+            ];
+        
+        $insertarDescanso = $descanso -> insertMany($datosDescanso);
+
+            }
+            
+            if($insertarDescanso){
+                echo "<br>";
+                echo "SE HAN AGENDADO SUS DESCANSOS ;)";
+            }else{
+                echo "<br>";
+                echo "UPS, HA HABIDO UN PROBLEMA AL AGENDAR";
+            }
+
+}elseif($prioridadTarea == "Alta"){
+    // codigo para agendar descansos si es prioridad alta
+
+    require '/xampp/htdocs/BreakBdy/VISUAL STUDIO/ALMACEN DESCANSOS/almacenDescansos.php';
+
+    function HorasAMinutos($hora){
+        list($horas , $minutos) = explode(":",$hora);
+        return($horas * 60) + $minutos;
+        }
+        
+        function MinutosAHoras($minutos){
+        $horas = floor($minutos/60);
+        $minutos = $minutos % 60;
+        return sprintf("%02d:%02d", $horas, $minutos);
+        }
+
+        $minutosInicial_a= HorasAMinutos($horaInicial);
+        $minutosFinal_a= HorasAMinutos($horaFinal);
+        
+        $cuartoTiempo = ($minutosFinal_a - $minutosInicial_a)/4;
+        
+
+            for($i = 1 ; $i < 3 ; $i++){
+
+                $descansoAleatorio = array_rand($descansos);
+                $horaOperada = ($cuartoTiempo * $i) + $minutosInicial_a;
+                $hora_cuarto = MinutosAHoras($horaOperada);
+            $datosDescanso = [
+                'asignado' => $_SESSION['usuarioBreak'],
+                'tareaAsignada' => $nombreTarea,
+                'nombreDescanso' => $descansos[$descansoAleatorio]['nombreDescanso'],
+                'descripcionDescanso' => $descansos[$descansoAleatorio]['descripcionDescanso'],
+                'imagenDescanso' => $descansos[$descansoAleatorio]['imagenDescanso'],
+                'duracionDescanso' => $descansos[$descansoAleatorio]['duracionDescanso'],
+                'hora' => $hora_cuarto,
+                'fechaDescanso' => $fechaTarea,
+                'id' => uniqid()
+            ];
+        
+        $insertarDescanso = $descanso -> insertOne($datosDescanso);
+
+            }
+            
+            if($insertarDescanso){
+                echo "<br>";
+                echo "SE HAN AGENDADO SUS DESCANSOS ;)";
+            }else{
+                echo "<br>";
+                echo "UPS, HA HABIDO UN PROBLEMA AL AGENDAR";
+            }
+}
+
 }else{
     echo "ups, hubo un problema agendando";
+}
 }
 }catch(\Throwable $e){
     echo "Error: " . $e->getMessage();

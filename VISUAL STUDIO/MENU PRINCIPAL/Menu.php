@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,15 +11,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Agent</title>
 </head>
+
+<?php 
+session_start();
+if(!isset($_SESSION['usuarioBreak'])){
+  header('Location:../INICIO DE SESION/iniciarSesion.php');
+  exit();
+}
+use MongoDB\BSON\ObjectId;
+use MongoDB\Model\BSONDocument;
+use MongoDB\Client;
+use MongoDB\Operation\FindOne;
+use MongoDB\Operation\InsertOne;
+require '/xampp/htdocs/BREAKBDY/VISUAL STUDIO/INICIO DE SESION/sesion.php';
+require  '/xampp/htdocs/BreakBdy/CONFIGURACIONES/bd.php';
+
+$tareas = $breakbdy ->selectCollection('tareas');
+$compromisos = $breakbdy ->selectCollection('Compromisos');
+$eventos = $breakbdy -> selectCollection('Eventos');
+$descansos = $breakbdy ->selectCollection('descansos');
+
+$especificacion = ['asignado' => $_SESSION['usuarioBreak']];
+$consulta = $tareas ->Find($especificacion , ['sort' =>(['fecha' => 1 , 'hora.horaInicial' =>1])]);
+$consultadescanso = $descansos -> Find($especificacion , ['sort' =>(['fechaDescanso' => 1 , 'hora' =>1])]);
+$resultadoConsultaDescanso = $consultadescanso->toArray();
+$razonArreglo = "Tarea";
+?>
 <body>
     <div id="menu-barra" class="col-md-1">
 
-    <a href="../MENU USUARIO/Usuario.html" ><img class="imagen4" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-logo.jpeg?raw=true" alt=":v"><p id="texto">Usser</p></a>
-    <a href="../MENU PRINCIPAL/Menu.html"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Calendario.png?raw=true" alt=":v"><p id="texto">Inicio</p></a>
-    <a href="../MENU TAREAS/Tareas.html"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-Tareas.png?raw=true" alt=":v"><p id="texto">Tareas</p></a>
-    <a href="../MENU DESCANSOS/Descansos.html"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-descansos.png?raw=true" alt=":v"></a>
-    <a href="../MENU EVENTO/Evento.html"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-Eventos.png?raw=true" alt=":v"><p id="texto">Eventos</p></a>
-    <a href="../MENU COMPROMISOS/Compromiso.html"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/imagen-compromisos.png?raw=true" alt=":v"><p id="texto">Compromiso</p></a>
+    <a href="../MENU USUARIO/Usuario.php" ><img class="imagen4" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-logo.jpeg?raw=true" alt=":v"><p id="texto">Usser</p></a>
+    <a href="../MENU PRINCIPAL/Menu.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Calendario.png?raw=true" alt=":v"><p id="texto">Inicio</p></a>
+    <a href="../MENU TAREAS/TAREAS.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-Tareas.png?raw=true" alt=":v"><p id="texto">Tareas</p></a>
+    <a href="../MENU DESCANSOS/Descansos.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-descansos.png?raw=true" alt=":v"></a>
+    <a href="../MENU EVENTO/Evento.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-Eventos.png?raw=true" alt=":v"><p id="texto">Eventos</p></a>
+    <a href="../MENU COMPROMISOS/Compromiso.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/imagen-compromisos.png?raw=true" alt=":v"><p id="texto">Compromiso</p></a>
     <a href="#" id="expandir"><img class="imagen3" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/menu.png?raw=true" alt=""></a>
 
    
@@ -29,7 +53,22 @@
 
     <div id="contenido" class="col-md-1" id="contenedor-grande">
         <h1>BreakBdy</h1>
+        <form action="Menu.php" method="post">
+        <select name="mes" id="filtrar" class="col-md-10">
+          <?php
+  $mesActual = date('m');
+  $nombresMeses = [
+    'ENERO', 'FEBRERO', 'MARZO', 'ABRIL', 'MAYO', 'JUNIO',
+    'JULIO', 'AGOSTO', 'SEPTIEMBRE', 'OCTUBRE', 'NOVIEMBRE', 'DICIEMBRE'
+  ];
 
+  foreach ($nombresMeses as $indice => $nombreMes) {
+    $valorMes = sprintf('%02d', $indice + 1);
+    $selected = ($valorMes == $mesActual) ? 'selected' : '';
+    echo "<option value=\"$valorMes\" $selected>$nombreMes</option>";
+  }
+  ?>
+        </select>
 
         <table id="calendar">
             <tr class="calendar-header">
@@ -42,71 +81,165 @@
               <th class="dia-calendario">Sáb</th>
             </tr>
             <tr class="encabezado-calendario">
-                <th class="dia-calendario">1</th>
-                <th class="dia-calendario">2</th>
-                <th class="dia-calendario">3</th>
-                <th class="dia-calendario">4</th>
-                <th class="dia-calendario">5</th>
-                <th class="dia-calendario">6</th>
-                <th class="dia-calendario">7</th>
-              </tr>
+        <th class="dia-calendario"><button type="button" onclick="seleccionarDia(1)">1</button></th>
+        <th class="dia-calendario"><button type="button" onclick="seleccionarDia(2)">2</button></th>
+        <th class="dia-calendario"><button type="button" onclick="seleccionarDia(3)">3</button></th>
+        <th class="dia-calendario"><button type="button" onclick="seleccionarDia(4)">4</button></th>
+        <th class="dia-calendario"><button type="button" onclick="seleccionarDia(5)">5</button></th>
+        <th class="dia-calendario"><button type="button" onclick="seleccionarDia(6)">6</button></th>
+        <th class="dia-calendario"><button type="button" onclick="seleccionarDia(7)">7</button></th>
+    </tr>
+    <tr class="encabezado-calendario">
+        <th class="dia-calendario"><button type="button" onclick="seleccionarDia(8)">8</button></th>
+        <th class="dia-calendario"><button type="button" onclick="seleccionarDia(9)">9</button></th>
+        <th class="dia-calendario"><button type="button" onclick="seleccionarDia(10)">10</button></th>
+        <th class="dia-calendario"><button type="button" onclick="seleccionarDia(11)">11</button></th>
+        <th class="dia-calendario"><button type="button" onclick="seleccionarDia(12)">12</button></th>
+        <th class="dia-calendario"><button type="button" onclick="seleccionarDia(13)">13</button></th>
+        <th class="dia-calendario"><button type="button" onclick="seleccionarDia(14)">14</button></th>
+    </tr>
+    <tr class="encabezado-calendario">
+        <th class="dia-calendario"><button type="button" onclick="seleccionarDia(15)">15</button></th>
+        <th class="dia-calendario"><button type="button" onclick="seleccionarDia(16)">16</button></th>
+        <th class="dia-calendario"><button type="button" onclick="seleccionarDia(17)">17</button></th>
+        <th class="dia-calendario"><button type="button" onclick="seleccionarDia(18)">18</button></th>
+        <th class="dia-calendario"><button type="button" onclick="seleccionarDia(19)">19</button></th>
+        <th class="dia-calendario"><button type="button" onclick="seleccionarDia(20)">20</button></th>
+        <th class="dia-calendario"><button type="button" onclick="seleccionarDia(21)">21</button></th>
+    </tr>
+    <tr class="encabezado-calendario">
+        <th class="dia-calendario"><button type="button" onclick="seleccionarDia(22)">22</button></th>
+        <th class="dia-calendario"><button type="button" onclick="seleccionarDia(23)">23</button></th>
+        <th class="dia-calendario"><button type="button" onclick="seleccionarDia(24)">24</button></th>
+        <th class="dia-calendario"><button type="button" onclick="seleccionarDia(25)">25</button></th>
+        <th class="dia-calendario"><button type="button" onclick="seleccionarDia(26)">26</button></th>
+        <th class="dia-calendario"><button type="button" onclick="seleccionarDia(27)">27</button></th>
+        <th class="dia-calendario"><button type="button" onclick="seleccionarDia(28)">28 </button></th>
+        <input type="hidden" id="diaSeleccionado" name="diaSeleccionado" value="">
+</tr>
+<tr>
               <tr class="encabezado-calendario">
-                <th class="dia-calendario">8</th>
-                <th class="dia-calendario">9</th>
-                <th class="dia-calendario">10</th>
-                <th class="dia-calendario">11</th>
-                <th class="dia-calendario">12</th>
-                <th class="dia-calendario">13</th>
-                <th class="dia-calendario">14</th>
-              </tr>
-              <tr class="encabezado-calendario">
-                <th class="dia-calendario">15</th>
-                <th class="dia-calendario">16</th>
-                <th class="dia-calendario">17</th>
-                <th class="dia-calendario">18</th>
-                <th class="dia-calendario">19</th>
-                <th class="dia-calendario">20</th>
-                <th class="dia-calendario">21</th>
-              </tr>
-              <tr class="encabezado-calendario">
-                <th class="dia-calendario">22</th>
-                <th class="dia-calendario">23</th>
-                <th class="dia-calendario">24</th>
-                <th class="dia-calendario">25</th>
-                <th class="dia-calendario">26</th>
-                <th class="dia-calendario">27</th>
-                <th class="dia-calendario">28</th>
-              </tr>
-              <tr class="encabezado-calendario">
-                <th class="dia-calendario">29</th>
-                <th class="dia-calendario">30</th>
-                <th class="dia-calendario">31</th>
+              <th class="dia-calendario"><button type="button" onclick="seleccionarDia(29)">29</button></th>
+              <th class="dia-calendario"><button type="button" onclick="seleccionarDia(30)">30</button></th>
+              <th class="dia-calendario"><button type="button" onclick="seleccionarDia(31)">31</button></th>
               </tr>
 
+              <script>
+    function seleccionarDia(dia) {
+        
+        document.getElementById('diaSeleccionado').value = dia;
+       
+        document.getElementById('formulario').submit();
+    }
+</script>
 
+              <div id="menu-barra-der" class="col-md-1">
+              <section id="Tarea" name="Tarea">
+              <input type="submit" name="filtro" id="filtrar" class="boton2" value="Tarea">
+              </section>
 
+              <section id="Compromisos" name="Compromiso">
+              <input type="submit" name="filtro" id="filtrar" class="boton2" value="Compromiso">
+              </section>
 
-<div id="menu-barra-der" class="col-md-1">
-  <section id="Descanso" name="Descanso" >
-    <a href="#Calendario.html"> <input type="radio" name="" id=""> Descanso </a>
-  </section>
-    
-  <section id="Tarea" name="Tarea">
-    <a href="#Tarea.html"> <input type="radio" name="" id=""> Tarea</a>
-  </section>
+              <section id="Eventos" name="Evento">
+              <input type="submit" name="filtro" id="filtrar" class="boton2" value="Eventos">
+              </section>
 
-  <section id="Compromiso" name="Compromiso">
-  <a href="Compromiso.html"><input type="radio" name="" id=""> Compromiso</a>
-  </section>
+              </form>
+              </div>
 
-  <section id="Evento" name="Evento">
-      <a href="Evento.html"> <input type="radio" name="" id="">Evento
+              <div>
 
-      </a>
-  </section>
+              <?php 
+              if(isset($_POST['filtrar']) || isset($_POST['diaSeleccionado'])){
+              if(empty($_POST['mes'])){
+                $mes = date('m');
+              }
+              $razonArreglo = $_POST['filtro'];
+              $mes = $_POST['mes'];
+              $dia = $_POST['diaSeleccionado'];
+              if($_POST['diaSeleccionado'] == 0){
+                $dia = date('j');
+              }
+              $año = date('y');
+              if($dia< 10){
+                $dia = "0".$dia;
+              }
+              $fechaCadena = "20" . $año . "-" . $mes . "-" . $dia;
+              echo "FECHA:" . $fechaCadena;
+              $razonArreglo = $_POST['filtro'];
+              $especificacion = ['asignado' => $_SESSION['usuarioBreak'],
+              'fecha'.$razonArreglo => $fechaCadena
+            ];
+          
+              ?>
+
+<div id="menu-barra-der-2" class="col-md-1">
+  <h2>AGENDA <?php echo " " . $razonArreglo?></h2>
+  <?php if($razonArreglo == "Tarea"){?>
+  <?php foreach($consulta as $documento){
+?>
+
+<section  id="<?php echo $documento['clase'];?>">
+  <a href="/VISUAL STUDIO/MENU TAREAS/EDITAR TAREA/EditarTarea.php?id=<?php echo $documento['_id'];?>"> 
+<?php echo $documento['nombreTarea'] . "<br>";?>
+<p><?php echo $documento['descripcionTarea'] . "<br>";?></p>
+<p><?php echo $documento['hora']['horaInicial'] . " - " . $documento['hora']['horaFinal'] . "<br>";?></p>
+<p><?php echo $documento['fechaTarea']?></p>
+</a>
+</section>
+
+<?php }
+
+}elseif($razonArreglo == "Eventos"){
+  $consulta = $eventos ->Find($especificacion , ['sort' =>(['fechaEventos' => 1 , 'hora' =>1])]);
+  foreach($consulta as $documento){
+  ?>
+<section  id="<?php echo $documento['clase']?>">
+  <a href="/VISUAL STUDIO/MENU EVENTO/FORMULARIO EDITAR/EditarEventos.php?id=<?echo $documento['_id'];?>"> 
+<?php echo $documento['nombreEventos'] . "<br>";?>
+<p><?php echo $documento['descripcionEventos'] . "<br>";?></p>
+<p><?php echo $documento['hora'] . "<br>";?></p>
+<p><?php echo $documento['fechaEventos']?></p>
+</a>
+</section>
+
+<?php }
+
+}elseif($razonArreglo == "Compromisos"){
+  $consulta = $compromisos ->Find($especificacion , ['sort' =>(['fechaCompromisos' => 1 , 'hora' =>1])]);
+
+  foreach($consulta as $documento){
+  ?>
+
+<section  id="<?php echo $documento['clase'];?>">
+  <a href="/VISUAL STUDIO/MENU COMPROMISOS/FORMULARIO EDITAR/EditarCompromisos.php?id=<?php echo $documento['_id'];?>"> 
+<?php echo $documento['nombreCompromisos'] . "<br>";?>
+<p><?php echo $documento['descripcionCompromisos'] . "<br>";?></p>
+<p><?php echo $documento['hora']. "<br>";?></p>
+<p><?php echo $documento['fechaCompromisos']?></p>
+</a>
+</section>
+
+<?php }}?>
+
 
 </div>
-
+<div id="menu-barra-der-2" class="col-md-1" style="margin-left: 800px ;">
+<h2>DESCANSOS</h2>
+<?php
+foreach($resultadoConsultaDescanso as $listaDescansos){ if(empty($listaDescansos)){ echo "AUN NO HAY NADA AGENDADO ;)";}?>
+<section id="Descanso" id="menu-barra-der-2" class="col-md-1">
+<a href="/VISUAL STUDIO/MENU DESCANSOS/VerDescansos.php?id= <?echo $listaDescansos['_id']?>">
+  <?php echo $listaDescansos['hora'] . " ";?>
+  <p><?php echo $listaDescansos['fechaDescanso']?></p>
+  <p><?php echo $listaDescansos['duracionDescanso'] . " segundos";?></p>
+</a>
+</section>
+<?php }}?>
+</div>
+</div>
 </div>
 
 </body>

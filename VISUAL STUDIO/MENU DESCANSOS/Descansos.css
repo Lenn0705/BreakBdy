@@ -130,7 +130,15 @@ body{
     display: block;
     border-radius: 5px;
 }
-
+.icono-visibilidad img{
+ height: 50px;
+ width: 50px;
+}
+.icono-visibilidad ::after{
+    transition: 0.3s ease-in-out;
+    animation: normal;
+    align-self: center;
+}
 #Descansos{
     height: 90%;
 }
@@ -144,7 +152,6 @@ body{
     margin-bottom: 30px;
     align-content: center;
     padding: 20px 15px;
-    max-height: 100px;
     }
 
 #Descansos p{
