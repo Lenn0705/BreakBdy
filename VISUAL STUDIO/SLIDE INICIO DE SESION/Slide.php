@@ -1,3 +1,4 @@
+<?php session_start();?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,10 +13,17 @@
     <title>BreakBdy</title>
 </head>
 <body>
+<?php if($_SESSION['Rol'] == 'Administrador'){ 
+    $cadena = '../MENU ADMIN/MenuAdmin.php';
+    }elseif($_SESSION['Rol'] == 'Usuario'){ 
+        $cadena = '../MENU PRINCIPAL/Menu.php';
+    }
+        ?>
+
     <div id="logobreakbdy">
         <img src="../IMAGENES BREAKBDY/12a5e2c0-7bee-4e2d-abeb-7928d3819cef.png">
         <br>
-        <button class="boton" style="white-space: pre;" onclick="location.href='../MENU PRINCIPAL/Menu.php'">  &#x21E7;  </button>
+        <button class="boton" style="white-space: pre;" onclick="location.href='<?php echo $cadena?>'">  &#x21E7;  </button>
         <br>
         <p>Desliza para agendar tu dia</p>
      </div>

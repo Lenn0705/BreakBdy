@@ -47,7 +47,7 @@ $resultadoConsultaTarea = $consultaTarea ->toArray();
     <form action="EliminarTarea.php" method="post">
     <section id="Tarea" name="Tarea">
       <?php foreach($resultadoConsultaTarea as $documento){?>
-        <a href="../Tareas.html"><input type="checkbox" name="EliminarTarea[]" value="<?php echo $documento['_id']; ?>"> <?php echo $documento['nombreTarea']. "<br>";?>
+        <a><input type="checkbox" name="EliminarTarea[]" value="<?php echo $documento['_id']; ?>"> <?php echo $documento['nombreTarea']. "<br>";?>
         <p>Descripcion: <?php echo $documento['descripcionTarea'] . "<br>";?></p>
         <p>Tiempo: <?php echo $documento['hora']['horaInicial']. " - " . $documento['hora']['horaInicial']."<br>"?></p>
         <p>Fecha: <?php echo $documento['fechaTarea'];?></p></a>
@@ -93,8 +93,6 @@ foreach($tareasEliminadas as $descansosEliminados){
     'asignado' => $_SESSION['usuarioBreak'],
     'tareaAsignada' => $tareasEliminadas['nombreTarea']
   ];
-
-  $buscar = $descansos ->Find($busquedaEliminarDescansos);
   $elimiarDescanso = $descansos ->deleteOne($busquedaEliminar);
 
 }

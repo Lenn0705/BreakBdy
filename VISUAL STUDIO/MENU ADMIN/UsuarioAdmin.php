@@ -6,23 +6,15 @@
     <link href="https://fonts.cdnfonts.com/css/aquawax" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="Usuario.css">
+    <link rel="stylesheet" href="../MENU USUARIO/Usuario.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Usuario</title>
 </head>
 <body>
     <div id="menu-barra">
-
-        <a href="../MENU USUARIO/Usuario.php" ><img class="imagen4" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-logo.jpeg?raw=true" alt=":v"><p id="texto">Usser</p></a>
-        <a href="../MENU PRINCIPAL/Menu.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Calendario.png?raw=true" alt=":v"><p id="texto">Inicio</p></a>
-        <a href="../MENU TAREAS/Tareas.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-Tareas.png?raw=true" alt=":v"><p id="texto">Tareas</p></a>
-        <a href="../MENU DESCANSOS/Descansos.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-descansos.png?raw=true" alt=":v"></a>
-        <a href="../MENU EVENTO/Evento.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-Eventos.png?raw=true" alt=":v"><p id="texto">Eventos</p></a>
-        <a href="../MENU COMPROMISOS/Compromiso.php"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/imagen-compromisos.png?raw=true" alt=":v"><p id="texto">Compromiso</p></a>
-        <a href="#" id="expandir"><img class="imagen3" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/menu.png?raw=true" alt=""></a>
-    
-       
+    <a href="../MENU USUARIO/UsuarioAdmin.php" style="margin-top: 200px;" ><img class="imagen4" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Imagen-logo.jpeg?raw=true" alt=":v"><p id="texto">Usser</p></a>
+    <a href="../MENU ADMIN/MenuAdmin.php" style="margin-top:200px"> <img class="imagen2" src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Calendario.png?raw=true" alt=":v"><p id="texto">Inicio</p></a>   
       </div>
       <div class="menu-der-usser">
         <a href="#Cambiar imagen de perfil"><img src="https://github.com/Lenn0705/BreakBdy/blob/main/VISUAL%20STUDIO/IMAGENES%20BREAKBDY/Calendario.png?raw=true" alt=""></a>
@@ -59,7 +51,7 @@
 
 <div class="menu-der-usser">
     <div class="menu-der-usser-extra">
-        <form action="Usuario.php" method="post">
+        <form action="UsuarioAdmin.php" method="post">
     <section>
         <label for="Nombre">Nombre Real:</label>
         <Input type="text" name="Nombre" value = "<?php echo $nombreReal;?>"></Input>
@@ -86,13 +78,13 @@
 </div>
 <div>
     <section id="barra-control">
-        <form action="Usuario.php" method="post">
+        <form action="UsuarioAdmin.php" method="post">
         <input type="submit" name = "cerrar_sesion" id = "boton_cerrar_sesion" value="Cerrar Sesion"></Input>
         </form>
-        <form action="Usuario.php" method="post">
+        <form action="UsuarioAdmin.php" method="post">
             <input type="submit" name="cambiar_contraseña" id = "boton_cambiar_contraseña" value="Cambiar Contraseña">
         </form>
-        <button onclick="location.href='../MENU PRINCIPAL/Menu.php'">←</button>
+        <button onclick="location.href='../MENU ADMIN/MenuAdmin.php'">←</button>
     </section>
   </div>
   <div>
@@ -105,7 +97,7 @@
     }
     if(isset($_POST['cambiar_contraseña'])){
         // si se quiere cambiar la contraseña, se generara una seccion para cambiarla
-echo "<section><form action='Usuario.php' method='post'><label for='Contraseña'>Contraseña:</label>";
+echo "<section><form action='UsuarioAdmin.php' method='post'><label for='Contraseña'>Contraseña:</label>";
 echo "<Input type='password' name='Contraseña' placeholder='ingrese la nueva contraseña'></Input> <br>";
 echo "<Input type='submit' name='nueva_contraseña' value='Confirmar'></Input></form></section>";
 if(isset($_POST['nueva_contraseña'])){
@@ -167,12 +159,14 @@ if(isset($_POST['Cambiar_datos'])){
     $Usuario = $_POST['Usuario'];
     $Correo = $_POST['Correo'];
 
-try{
+    echo $nombre. $Apellido . $Usuario . $Correo;
 
-    require_once '/xampp/htdocs/BreakBdy/vendor/autoload.php';
-    require '/xampp/htdocs/BREAKBDY/VISUAL STUDIO/INICIO DE SESION/sesion.php';
-    require  '/xampp/htdocs/BreakBdy/CONFIGURACIONES/bd.php';
+try{
     
+require_once '/xampp/htdocs/BreakBdy/vendor/autoload.php';
+require '/xampp/htdocs/BREAKBDY/VISUAL STUDIO/INICIO DE SESION/sesion.php';
+require  '/xampp/htdocs/BreakBdy/CONFIGURACIONES/bd.php';
+
     $coleccion = $breakbdy -> selectCollection('usuario');
 
     $datos_cambiados = [

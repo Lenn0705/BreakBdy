@@ -33,6 +33,7 @@ function conectar($db_components){
 /*Extraccion de datos*/
 
     $nombreReal = $_POST['NombReal'];
+    $rol = $_POST['Rol'];
     $apellidos = $_POST['ApellReal'];
     $nacimiento = $_POST['fecha'];
     $correo = $_POST['Correo'];
@@ -71,6 +72,7 @@ function conectar($db_components){
          'ApellidosReales' => $apellidos,
          'fechaNacimiento' => $nacimiento,
          'CorreoElectronico' => $correo,
+         'Rol' => $rol,
          'usuarioBreak' => $UsuarioBreak,
          'contraseñaBreak' => password_hash($ContraseñaBreak, PASSWORD_DEFAULT),
          '_id' => uniqid(),
