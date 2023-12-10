@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="Menu.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Agent</title>
@@ -36,6 +37,7 @@ $consulta = $tareas ->Find($especificacion , ['sort' =>(['fecha' => 1 , 'hora.ho
 $consultadescanso = $descansos -> Find($especificacion , ['sort' =>(['fechaDescanso' => 1 , 'hora' =>1])]);
 $resultadoConsultaDescanso = $consultadescanso->toArray();
 $razonArreglo = "Tarea";
+$dia = date('d');
 ?>
 <body>
     <div id="menu-barra" class="col-md-1">
@@ -50,12 +52,28 @@ $razonArreglo = "Tarea";
 
    
   </div>
-
     <div id="contenido" class="col-md-1" id="contenedor-grande">
-        <h1>BreakBdy</h1>
+        <h1>BreakBdy   <p name='reloj' id="reloj"></p></h1>
+        <script>
+        // Aquí iría tu código JavaScript para manejar la actualización del reloj
+        function actualizarReloj() {
+            var fechaHoraActual = new Date().toLocaleString("es-ES");
+            document.getElementById("reloj").innerText = fechaHoraActual;
+            setTimeout(actualizarReloj , 1000);
+        }
+        actualizarReloj();
+    </script>
+    
         <form action="Menu.php" method="post">
         <select name="mes" id="filtrar" class="col-md-10">
           <?php
+          function actualizarfecha(){
+            $fechita = date("Y-m-d");
+            $horita = date("H:i");
+            $fechorita = $fechita ."," . $horita;
+            return $fechorita;
+          }
+
   $mesActual = date('m');
   $nombresMeses = [
     'ENERO', 'FEBRERO', 'MARZO', 'ABRIL', 'MAYO', 'JUNIO',
@@ -139,7 +157,7 @@ $razonArreglo = "Tarea";
               </section>
 
               <section id="Compromisos" name="Compromiso">
-              <input type="submit" name="filtro" id="filtrar" class="boton2" value="Compromiso">
+              <input type="submit" name="filtro" id="filtrar" class="boton2" value="Compromisos">
               </section>
 
               <section id="Eventos" name="Evento">
@@ -159,8 +177,8 @@ $razonArreglo = "Tarea";
               $razonArreglo = $_POST['filtro'];
               $mes = $_POST['mes'];
               $dia = $_POST['diaSeleccionado'];
-              if($_POST['diaSeleccionado'] == 0){
-                $dia = date('j');
+              if($_POST['diaSeleccionado'] == "0"){
+                $dia = date('d');
               }
               $año = date('y');
               if($dia< 10){
@@ -177,7 +195,12 @@ $razonArreglo = "Tarea";
 
 <div id="menu-barra-der-2" class="col-md-1">
   <h2>AGENDA <?php echo " " . $razonArreglo?></h2>
-  <?php if($razonArreglo == "Tarea"){?>
+  <?php if($razonArreglo == "Tarea"){
+                  $especificacion = ['asignado' => $_SESSION['usuarioBreak'],
+                  'fecha'.$razonArreglo => $fechaCadena
+                ];
+                $consulta = $tareas ->Find($especificacion , ['sort' =>(['fecha' => 1 , 'hora.horaInicial' =>1])]);
+    ?>
   <?php foreach($consulta as $documento){
 ?>
 
@@ -186,13 +209,35 @@ $razonArreglo = "Tarea";
 <?php echo $documento['nombreTarea'] . "<br>";?>
 <p><?php echo $documento['descripcionTarea'] . "<br>";?></p>
 <p><?php echo $documento['hora']['horaInicial'] . " - " . $documento['hora']['horaFinal'] . "<br>";?></p>
-<p><?php echo $documento['fechaTarea']?></p>
+<p><?php echo $documento['fechaTarea'] ?></p>
+<?php 
+if($documento['fechaTarea'].",".$documento['hora']['horaFinal'] == actualizarfecha()){
+echo "<script>alert('se ha vencido la tarea ".$documento['nombreTarea']."')</script>";
+echo "<input type='submit' name='EliminarTarea' value='Eliminar'>";
+if(isset($_POST['EliminarTarea'])){
+$eliminarEspecifica=[
+  'asignado' => $_SESSION['usuarioBreak'],
+  '_id' => $documento['_id']
+];
+$consultaEliminar = $tareas -> deleteOne($eliminarEspecifica);
+if($consultaEliminar-> getDeletedCount() >0){
+  $especificacionExtra = ['asignado' => $_SESSION['usuarioBreak'],
+  'fechaDescanso' => $fechaCadena,
+  'TareaAsignada' => $documento['nombreTarea']
+];
+$consultadescanso = $descansos -> deleteOne($especificacionExtra);
+if($consultadescanso -> getDeletedCount() >0){
+  echo "<script>alert('Tambien se eliminaron los descansos')</script>";
+}
+}
+}
+?>
 </a>
 </section>
 
 <?php }
 
-}elseif($razonArreglo == "Eventos"){
+}}elseif($razonArreglo == "Eventos"){
   $consulta = $eventos ->Find($especificacion , ['sort' =>(['fechaEventos' => 1 , 'hora' =>1])]);
   foreach($consulta as $documento){
   ?>
@@ -202,12 +247,27 @@ $razonArreglo = "Tarea";
 <p><?php echo $documento['descripcionEventos'] . "<br>";?></p>
 <p><?php echo $documento['hora'] . "<br>";?></p>
 <p><?php echo $documento['fechaEventos']?></p>
+<?php
+if($documento['fechaEventos'].",".$documento['hora'] == actualizarfecha()){
+  echo "<script>alert('Tienes tu: ".$documento['nombreEventos']." ahora')</script>";
+  echo "<input type='submit' name='EliminarEvento' value='Eliminar'>";
+if(isset($_POST['EliminarEvento'])){
+$eliminarEspecifica=[
+  'asignado' => $_SESSION['usuarioBreak'],
+  '_id' => $documento['_id']
+];
+$consultaEliminar = $tareas -> deleteOne($eliminarEspecifica);
+if($consultaEliminar-> getDeletedCount() >0){
+echo "Se elimino el evento";
+}
+  }
+?>
 </a>
 </section>
 
 <?php }
 
-}elseif($razonArreglo == "Compromisos"){
+}}elseif($razonArreglo == "Compromisos"){
   $consulta = $compromisos ->Find($especificacion , ['sort' =>(['fechaCompromisos' => 1 , 'hora' =>1])]);
 
   foreach($consulta as $documento){
@@ -218,7 +278,23 @@ $razonArreglo = "Tarea";
 <?php echo $documento['nombreCompromisos'] . "<br>";?>
 <p><?php echo $documento['descripcionCompromisos'] . "<br>";?></p>
 <p><?php echo $documento['hora']. "<br>";?></p>
-<p><?php echo $documento['fechaCompromisos']?></p>
+<p ><?php echo $documento['fechaCompromisos']?></p>
+<?php
+if($documento['fechaCompromisos'].",".$documento['hora'] == actualizarfecha()){
+  echo "<script>alert('Tienes que hacer tu compromiso: ".$documento['nombreCompromisos']."')</script>";
+  echo "<input type='submit' name='EliminarCompromiso' value='Eliminar'>";
+  if(isset($_POST['EliminarCompromiso'])){
+  $eliminarEspecifica=[
+    'asignado' => $_SESSION['usuarioBreak'],
+    '_id' => $documento['_id']
+  ];
+  $consultaEliminar = $tareas -> deleteOne($eliminarEspecifica);
+  if($consultaEliminar-> getDeletedCount() >0){
+  echo "Se elimino el compromiso";
+  }
+    }
+  }
+?>
 </a>
 </section>
 
@@ -229,12 +305,23 @@ $razonArreglo = "Tarea";
 <div id="menu-barra-der-2" class="col-md-1" style="margin-left: 800px ;">
 <h2>DESCANSOS</h2>
 <?php
-foreach($resultadoConsultaDescanso as $listaDescansos){ if(empty($listaDescansos)){ echo "AUN NO HAY NADA AGENDADO ;)";}?>
+                  $especificacion = ['asignado' => $_SESSION['usuarioBreak'],
+                  'fechaDescanso' => $fechaCadena
+                ];
+                $consultadescanso = $descansos -> Find($especificacion , ['sort' =>(['fechaDescanso' => 1 , 'hora' =>1])]);
+                $resultadoConsultaDescanso = $consultadescanso->toArray();
+foreach($resultadoConsultaDescanso as $listaDescansos){?>
 <section id="Descanso" id="menu-barra-der-2" class="col-md-1">
-<a href="/VISUAL STUDIO/MENU DESCANSOS/VerDescansos.php?id= <?echo $listaDescansos['_id']?>">
+<a href="/VISUAL STUDIO/MENU DESCANSOS/Descansos.php">
   <?php echo $listaDescansos['hora'] . " ";?>
   <p><?php echo $listaDescansos['fechaDescanso']?></p>
   <p><?php echo $listaDescansos['duracionDescanso'] . " segundos";?></p>
+  <?php
+if($listaDescansos['fechaDescanso'].",".$listaDescansos['hora'] == actualizarfecha()){
+  echo "<script>alert('Hora de descansar: ".$documento['duracionDescanso']." segundos')</script>";
+  echo "<input type='submit'>";
+  }
+?>
 </a>
 </section>
 <?php }}?>

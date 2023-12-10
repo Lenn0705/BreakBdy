@@ -59,10 +59,10 @@ $resultadoConsultaColeccion = $consultaColeccion ->toArray();
     <div id="barra-control">
      <section id="control">
 
-        <button onclick="location.href='/Breakbdy/VISUAL STUDIO/MENU COMPROMISOS/FORMULARIO CREAR/CrearCompromisos.php'">Crear Compromiso
+        <button onclick="location.href='/VISUAL STUDIO/MENU COMPROMISOS/FORMULARIO CREAR/CrearCompromisos.php'">Crear Compromiso
 
       </button>
-        <button onclick="location.href='/Breakbdy/VISUAL STUDIO/MENU COMPROMISOS/FORMULARIO ELIMINAR/EliminarCompromisos.php'" id="botonRedireccionarEliminar">Eliminar Compromiso
+        <button onclick="location.href='/VISUAL STUDIO/MENU COMPROMISOS/FORMULARIO ELIMINAR/EliminarCompromisos.php'" id="botonRedireccionarEliminar">Eliminar Compromiso
       </button>
         <script src="Compromiso.js"></script>
      </section>

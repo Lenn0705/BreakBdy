@@ -9,11 +9,42 @@
     <link rel="stylesheet" type="text/css" href="breakbdy.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Registro BreakBdy</title>
 </head>
-<body>
+<body >
+    
+<form action="breakbdy.php" method="post">
     <img id="logo" src="/VISUAL STUDIO/IMAGENES BREAKBDY/Imagen-logo.jpeg" alt="">
-    <a class="boton" href="../INICIO DE SESION/iniciarSesion.php">Volver a Iniciar Sesion</a>
+    
+    <input type="text" name="NombReal" id="" class="entradas" placeholder="ingrese su Nombre real">
+    <label for="NombReal" class="titulos">Ingrese sus Nombres</label>
+
+    <input type="text" name="ApellReal" id="" class="entradas" placeholder="ingrese su Apellido real">
+    <label for="ApellReal" class="titulos">Ingrese sus Apellido</label>
+
+    <input type="date" name="fecha" id="" class="entradas">
+    <label for="fecha" class="titulos">Ingrese su Fecha de nacimiento</label>
+
+    <input type="text" name="Correo" id="" class="entradas" placeholder="ingrese su Correo">
+    <label for="Correo" class="titulos">Ingrese su Correo</label>
+
+    <input name="NombUsuario" class="entradas" type="text" placeholder="Escriba el Usuario">
+    <label class="titulos" for="titulos">Ingrese Su usuario BreakBdy</label>
+
+    <select name="Rol" class="entradas" id="rol">
+    <option value="Administrador">Administrador</option>
+    <option value="Usuario">Usuario</option>
+    </select>
+
+    <input name="contraseña" class="entradas" type="password" placeholder="Escriba la Contraseña">
+    <label for="contraseña" class="titulos">Ingrese su contraseña BreakBdy</label>
+
+    <input type="submit" value="Ingresar" class="boton">
+    
+    <label for="breakbdy" class="tituloInferior">Ya tienes un usuario?</label>
+     <a class="tituloInferior" href="../INICIO DE SESION/iniciarSesion.php">Inicia sesion con nosotros</a>
+
+    </form>
 </body>
 </html>
 
@@ -39,6 +70,11 @@ function conectar($db_components){
     $correo = $_POST['Correo'];
     $UsuarioBreak = $_POST['NombUsuario'];
     $ContraseñaBreak = $_POST['contraseña'];
+
+    if(empty($nombreReal) || empty($apellidos) || empty($nacimiento) || empty($correo) || empty($UsuarioBreak) || empty($ContraseñaBreak)){
+        echo "<h3 class='titulos'>TODOS LOS CAMPOS SON REQUERIDOS</h3>";
+        
+    }else{
 
     try{
 
@@ -81,13 +117,11 @@ function conectar($db_components){
         $usser ->insertOne($registro);
 
         echo "<h1 class='titulos'>El registro ha sido exitoso</h1>";
+        echo "   <a class='boton' href='../INICIO DE SESION/iniciarSesion.php'>Volver a Iniciar Sesion</a>";
     }catch(\Throwable $th){
         echo "Error: " . $th->getMessage();
-    }
+    }}
 }
 }
 conectar($db_components);
 ?>
-
-
-
