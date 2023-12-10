@@ -27,8 +27,7 @@
     <option value="Usuario">Usuario</option>
     </select>
 
-    <input type="submit" value="Ingresar" name="iniciar_sesion" class="boton">
-    
+    <input type="submit" value="Ingresar" name="iniciar_sesion" class="boton">   
      <a name="breakbdy" class="tituloInferior" href="https://www.breakbdy.com">Olvidaste tu contraseña?...</a>
      <a name="breakbdy" class="tituloInferior" href="/VISUAL STUDIO/REGISTRO/breakbdy.php">No te has agendado con nosotros..</a>
     </form>

@@ -42,6 +42,7 @@ $usuarios = $breakbdy ->selectCollection('usuario');
 $consultaUsuarios = $usuarios ->find();
 $resultadoUsuarios = $consultaUsuarios -> toArray();
 foreach($resultadoUsuarios as $documento){
+
 ?>
 <section id="Tarea">
 <a>
@@ -66,6 +67,7 @@ foreach($resultadoUsuarios as $documento){
     $_SESSION['usuarioEditar'] = $documento['usuarioBreak'];
   }
   ?>
+
 </div>
 </a>
 </section>
